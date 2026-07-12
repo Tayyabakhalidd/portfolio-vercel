@@ -1,0 +1,9 @@
+{
+  "name": "tayyaba-portfolio",
+  "version": "2.0.0",
+  "description": "Tayyaba Khalid — AI Automation & Agent Developer Portfolio",
+  "private": true,
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  }
+}

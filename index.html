@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tayyaba Khalid — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#b89fd4;--bg-light:#c9b8e0;--card:#d4c3e8;
+--card-light:#e2d4f2;--card-white:#ede4f8;
+--deep:#3b2272;--deep2:#4e2d94;--mid:#6b48b0;--soft:#8c6cc8;
+--white:#ffffff;--text-h:#2a1654;--text-body:#3d2870;
+--text-soft:#5e4490;--text-muted:#8070a8;--text-light:#a896c8;
+--font-d:'Playfair Display',serif;--font-b:'Plus Jakarta Sans',sans-serif;
+--font-m:'Space Mono',monospace;--r:16px;--rl:28px;--rxl:40px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text-body);font-family:var(--font-b);overflow-x:hidden;line-height:1.6}
+#sp{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--deep),var(--soft));z-index:1000;width:0;transition:width 0.1s}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;background:var(--deep);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.7s,visibility 0.7s}
+#loader.gone{opacity:0;visibility:hidden;pointer-events:none}
+.ld-box{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:var(--rxl);padding:3rem 4rem;text-align:center}
+.ld-init{font-family:var(--font-d);font-size:5rem;font-weight:900;color:var(--white);line-height:1;margin-bottom:0.5rem}
+.ld-sub{font-family:var(--font-m);font-size:0.62rem;letter-spacing:0.3em;color:rgba(255,255,255,0.5);text-transform:uppercase}
+.ld-bar{width:140px;height:2px;background:rgba(255,255,255,0.12);border-radius:2px;margin:1.75rem auto 0;overflow:hidden}
+.ld-fill{height:100%;width:0;background:rgba(255,255,255,0.6);border-radius:2px;animation:ldf 2s ease forwards}
+@keyframes ldf{to{width:100%}}
+
+/* ── ADMIN LOGIN OVERLAY ── */
+#admin-login{display:none;position:fixed;inset:0;background:var(--deep);z-index:8888;align-items:center;justify-content:center}
+#admin-login.show{display:flex}
+.al-box{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:var(--rxl);padding:3rem 3.5rem;text-align:center;width:100%;max-width:420px}
+.al-logo{font-family:var(--font-d);font-size:2.5rem;font-weight:900;color:var(--white);margin-bottom:0.4rem}
+.al-sub{font-family:var(--font-m);font-size:0.6rem;letter-spacing:0.25em;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:2rem}
+.al-label{font-size:0.75rem;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.08em;text-align:left;display:block;margin-bottom:0.4rem}
+.al-input{width:100%;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.2);border-radius:var(--r);padding:0.85rem 1.1rem;color:var(--white);font-family:var(--font-b);font-size:0.9rem;outline:none;margin-bottom:1.1rem;transition:border-color 0.2s}
+.al-input:focus{border-color:rgba(255,255,255,0.55)}
+.al-input::placeholder{color:rgba(255,255,255,0.3)}
+.al-btn{width:100%;background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.3);border-radius:100px;padding:0.85rem;color:var(--white);font-family:var(--font-b);font-weight:700;font-size:0.9rem;cursor:pointer;transition:background 0.2s,border-color 0.2s;letter-spacing:0.03em}
+.al-btn:hover{background:rgba(255,255,255,0.25);border-color:rgba(255,255,255,0.5)}
+.al-err{font-size:0.78rem;color:#ffaaaa;margin-top:0.85rem;display:none}
+.al-err.show{display:block}
+.al-close{margin-top:1.25rem;font-size:0.75rem;color:rgba(255,255,255,0.3);cursor:pointer;transition:color 0.2s}
+.al-close:hover{color:rgba(255,255,255,0.6)}
+
+/* ── ADMIN BAR (only in admin mode) ── */
+#admin-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:8000;background:var(--deep);border-top:2px solid rgba(255,255,255,0.15);padding:0.65rem 2rem;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+#admin-bar.show{display:flex}
+.ab-left{display:flex;align-items:center;gap:0.75rem}
+.ab-badge{font-family:var(--font-m);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);padding:0.3rem 0.75rem;border-radius:100px;border:1px solid rgba(255,255,255,0.2)}
+.ab-dot{width:7px;height:7px;border-radius:50%;background:#7eff9a;display:inline-block;margin-right:0.3rem;animation:pdot 2s infinite}
+@keyframes pdot{0%,100%{opacity:1}50%{opacity:0.4}}
+.ab-label{font-size:0.8rem;color:rgba(255,255,255,0.55);font-family:var(--font-m)}
+.ab-logout{font-size:0.75rem;font-weight:700;color:rgba(255,255,255,0.5);background:none;border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:0.35rem 0.9rem;cursor:pointer;transition:all 0.2s}
+.ab-logout:hover{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.85)}
+
+/* ── ADMIN PANELS — hidden by default, shown only in admin mode ── */
+.admin-only{display:none !important}
+body.admin-mode .admin-only{display:block !important}
+body.admin-mode .admin-only.avatar-actions{display:flex !important}
+body.admin-mode{padding-bottom:56px} /* room for admin bar */
+
+/* manager panel */
+.manager-panel{background:var(--card);border-radius:var(--rxl);padding:2rem;border:2px solid rgba(255,255,255,0.4);margin-bottom:2rem;position:relative}
+.manager-panel::before{content:'ADMIN PANEL';position:absolute;top:-10px;left:1.5rem;font-family:var(--font-m);font-size:0.55rem;letter-spacing:0.2em;background:var(--deep);color:rgba(255,255,255,0.6);padding:0.2rem 0.65rem;border-radius:100px}
+.mp-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0;flex-wrap:wrap;gap:1rem}
+.mp-title{font-family:var(--font-d);font-size:1.05rem;font-weight:800;color:var(--text-h)}
+.mp-sub{font-size:0.78rem;color:var(--text-muted);margin-top:0.2rem}
+.btn-add{display:inline-flex;align-items:center;gap:0.4rem;background:var(--deep);color:var(--white);font-weight:700;font-size:0.8rem;padding:0.6rem 1.2rem;border-radius:100px;border:none;cursor:pointer;transition:background 0.2s}
+.btn-add:hover{background:var(--deep2)}
+
+/* add forms */
+.add-form{background:var(--card-white);border-radius:var(--rl);padding:1.5rem;border:1.5px solid rgba(255,255,255,0.5);margin-top:1.5rem;display:none}
+.add-form.open{display:block}
+.af-title{font-weight:700;font-size:0.88rem;color:var(--text-h);margin-bottom:1.1rem}
+.af-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem}
+.af-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;margin-bottom:0.75rem}
+.af-grid-4{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:0.75rem;align-items:end;margin-bottom:0.75rem}
+.af-field{display:flex;flex-direction:column;gap:0.4rem}
+.af-field label{font-size:0.73rem;font-weight:700;color:var(--text-soft);letter-spacing:0.04em}
+.af-field input,.af-field textarea,.af-field select{background:var(--white);border:1.5px solid rgba(185,160,225,0.5);border-radius:var(--r);padding:0.65rem 0.9rem;color:var(--text-h);font-family:var(--font-b);font-size:0.84rem;outline:none;transition:border-color 0.2s;width:100%}
+.af-field input:focus,.af-field textarea:focus,.af-field select:focus{border-color:var(--mid)}
+.af-field textarea{resize:vertical;min-height:80px;line-height:1.6}
+.af-field input[type=range]{padding:0.4rem 0;cursor:pointer;accent-color:var(--mid)}
+.af-bottom{display:flex;gap:0.6rem;align-items:center;margin-top:0.75rem;flex-wrap:wrap}
+.btn-save{background:var(--deep);color:var(--white);font-weight:700;font-size:0.8rem;padding:0.65rem 1.4rem;border-radius:100px;border:none;cursor:pointer;transition:background 0.2s}
+.btn-save:hover{background:var(--deep2)}
+.btn-cancel{background:rgba(255,255,255,0.4);color:var(--text-h);font-weight:600;font-size:0.8rem;padding:0.65rem 1.1rem;border-radius:100px;border:none;cursor:pointer;transition:background 0.2s}
+.btn-cancel:hover{background:rgba(255,255,255,0.65)}
+.pct-lbl{font-family:var(--font-m);font-size:0.7rem;color:var(--mid);font-weight:700;margin-top:0.25rem}
+
+/* hero admin edit button — admin-only */
+.btn-edit-link{background:rgba(59,34,114,0.12);border:1px solid rgba(255,255,255,0.3);border-radius:100px;padding:0.32rem 0.65rem;font-size:0.68rem;font-weight:700;color:var(--mid);cursor:pointer;transition:background 0.2s;white-space:nowrap}
+.btn-edit-link:hover{background:rgba(59,34,114,0.22)}
+.hero-social-edit{display:none;width:100%;flex-direction:column;gap:0.5rem;margin-top:0.5rem}
+.hero-social-edit.open{display:flex}
+.hero-social-edit input{background:var(--card-white);border:1.5px solid rgba(255,255,255,0.5);border-radius:var(--r);padding:0.55rem 0.85rem;color:var(--text-h);font-family:var(--font-b);font-size:0.8rem;outline:none;width:100%}
+.hero-social-edit-btns{display:flex;gap:0.5rem}
+.btn-save-link{background:var(--deep);color:var(--white);border:none;border-radius:100px;padding:0.45rem 1rem;font-size:0.75rem;font-weight:700;cursor:pointer;flex:1}
+.btn-cancel-link{background:rgba(255,255,255,0.3);color:var(--text-h);border:none;border-radius:100px;padding:0.45rem 1rem;font-size:0.75rem;font-weight:700;cursor:pointer}
+
+/* delete buttons (admin-only via JS) */
+.sc-delete,.proj-del,.tl-del,.item-del,.asp-del{position:absolute;width:26px;height:26px;border-radius:50%;background:rgba(200,180,230,0.4);border:none;cursor:pointer;font-size:0.72rem;color:var(--text-soft);display:none;align-items:center;justify-content:center;transition:background 0.2s}
+body.admin-mode .sc-delete,body.admin-mode .proj-del,body.admin-mode .tl-del,body.admin-mode .item-del,body.admin-mode .asp-del{display:flex}
+.sc-delete:hover,.proj-del:hover,.tl-del:hover,.item-del:hover,.asp-del:hover{background:rgba(180,50,50,0.15);color:#a03030}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:1.4rem 3rem;display:flex;align-items:center;justify-content:space-between;transition:all 0.35s}
+nav.stuck{background:rgba(184,159,212,0.88);backdrop-filter:blur(18px);padding:1rem 3rem;border-bottom:1px solid rgba(255,255,255,0.18)}
+.nav-brand{font-family:var(--font-d);font-size:1.1rem;font-weight:800;color:var(--text-h);text-decoration:none;background:var(--card-white);border:2px solid rgba(255,255,255,0.5);padding:0.38rem 1rem;border-radius:100px}
+.nav-links{display:flex;align-items:center;gap:0.2rem;list-style:none}
+.nav-links a{color:var(--text-body);text-decoration:none;font-size:0.84rem;font-weight:500;padding:0.48rem 1rem;border-radius:100px;transition:all 0.2s}
+.nav-links a:hover{background:rgba(255,255,255,0.25);color:var(--text-h)}
+.nav-links a.pill{background:var(--deep);color:var(--white)}
+.nav-links a.pill:hover{background:var(--deep2)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text-h);border-radius:2px}
+.mob-menu{display:none;position:fixed;inset:0;background:var(--deep);z-index:890;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.mob-menu.open{display:flex}
+.mob-menu a{font-family:var(--font-d);font-size:2.2rem;font-weight:700;color:var(--white);text-decoration:none}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:3rem;padding:7rem 3rem 4rem;max-width:1280px;margin:0 auto}
+.hero-chip{display:inline-block;font-family:var(--font-m);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mid);background:var(--card-white);border:1.5px solid rgba(255,255,255,0.6);padding:0.38rem 1rem;border-radius:100px;margin-bottom:1.5rem}
+.hero-h1{font-family:var(--font-d);font-size:clamp(3.2rem,5.5vw,5rem);font-weight:900;line-height:1.02;color:var(--text-h);margin-bottom:1.25rem}
+.hero-h1 em{color:var(--mid);font-style:italic;display:block}
+.hero-role{font-size:1rem;font-weight:600;color:var(--mid);margin-bottom:1rem}
+.hero-desc{font-size:0.95rem;color:var(--text-soft);line-height:1.85;max-width:460px;margin-bottom:2.25rem}
+.hero-btns{display:flex;gap:0.85rem;flex-wrap:wrap}
+.btn-deep{display:inline-flex;align-items:center;gap:0.4rem;background:var(--deep);color:var(--white);font-weight:700;font-size:0.86rem;padding:0.82rem 1.7rem;border-radius:100px;text-decoration:none;border:none;cursor:pointer;transition:background 0.22s,transform 0.18s}
+.btn-deep:hover{background:var(--deep2);transform:translateY(-2px)}
+.btn-outline{display:inline-flex;align-items:center;gap:0.4rem;background:var(--card-white);color:var(--text-h);font-weight:600;font-size:0.86rem;padding:0.82rem 1.7rem;border-radius:100px;text-decoration:none;border:2px solid rgba(255,255,255,0.5);cursor:pointer;transition:background 0.22s}
+.btn-outline:hover{background:var(--white)}
+.hero-stats{display:flex;gap:2rem;margin-top:2.5rem;padding-top:2rem;border-top:1.5px solid rgba(255,255,255,0.3)}
+.h-stat-n{font-family:var(--font-d);font-size:2rem;font-weight:900;color:var(--text-h)}
+.h-stat-l{font-size:0.76rem;color:var(--text-muted);margin-top:0.1rem}
+.hero-right{display:flex;flex-direction:column;gap:1rem}
+.avatar-wrap{background:var(--card);border-radius:var(--rxl);padding:2.5rem 2rem 1.75rem;display:flex;flex-direction:column;align-items:center;border:1.5px solid rgba(255,255,255,0.4)}
+.avatar-circle{width:150px;height:150px;border-radius:50%;background:linear-gradient(135deg,var(--deep),var(--soft));display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;font-family:var(--font-d);font-size:3.2rem;font-weight:900;color:var(--white);border:4px solid rgba(255,255,255,0.5);box-shadow:0 8px 32px rgba(59,34,114,0.25);position:relative;overflow:hidden}
+.avatar-circle img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.avatar-upload-btn{margin-top:0.6rem;background:rgba(59,34,114,0.12);border:1px solid rgba(255,255,255,0.3);border-radius:100px;padding:0.32rem 0.85rem;font-size:0.68rem;font-weight:700;color:var(--mid);cursor:pointer;transition:background 0.2s;display:inline-flex;align-items:center;gap:0.35rem}
+.avatar-upload-btn:hover{background:rgba(59,34,114,0.22)}
+.avatar-remove-btn{margin-top:0.4rem;background:none;border:none;font-size:0.68rem;color:var(--text-muted);cursor:pointer;text-decoration:underline}
+.avatar-actions{display:flex;flex-direction:column;align-items:center;gap:0.2rem}
+
+/* editable inline text — admin only */
+.edit-inline-wrap{position:relative}
+.edit-inline-btn{background:rgba(59,34,114,0.12);border:1px solid rgba(255,255,255,0.3);border-radius:100px;padding:0.3rem 0.75rem;font-size:0.66rem;font-weight:700;color:var(--mid);cursor:pointer;transition:background 0.2s;margin-top:0.5rem;display:inline-flex;align-items:center;gap:0.3rem}
+.edit-inline-btn:hover{background:rgba(59,34,114,0.22)}
+.edit-inline-form{display:none;margin-top:0.75rem;background:var(--card-white);border:1.5px solid rgba(255,255,255,0.5);border-radius:var(--rl);padding:1.25rem}
+.edit-inline-form.open{display:block}
+.edit-inline-form textarea{width:100%;background:var(--white);border:1.5px solid rgba(185,160,225,0.5);border-radius:var(--r);padding:0.75rem 0.95rem;color:var(--text-h);font-family:var(--font-b);font-size:0.9rem;outline:none;resize:vertical;min-height:90px;line-height:1.7}
+.edit-inline-form textarea:focus{border-color:var(--mid)}
+
+/* editable hero stats */
+.hstat-edit-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;margin-top:0.75rem}
+.hstat-field{display:flex;flex-direction:column;gap:0.35rem}
+.hstat-field label{font-size:0.7rem;font-weight:700;color:var(--text-soft)}
+.hstat-field input{background:var(--white);border:1.5px solid rgba(185,160,225,0.5);border-radius:var(--r);padding:0.5rem 0.7rem;color:var(--text-h);font-family:var(--font-b);font-size:0.85rem;outline:none;width:100%}
+.hstat-field input:focus{border-color:var(--mid)}
+.avatar-name{font-family:var(--font-d);font-size:1.2rem;font-weight:800;color:var(--text-h)}
+.avatar-sub{font-size:0.78rem;color:var(--text-soft);margin-top:0.25rem;text-align:center}
+.hero-social-row{display:flex;align-items:center;gap:0.5rem;margin-top:0.85rem;width:100%}
+.hero-social-display{font-size:0.72rem;color:var(--mid);background:var(--card-white);border:1px solid rgba(255,255,255,0.5);padding:0.32rem 0.85rem;border-radius:100px;text-decoration:none;transition:background 0.2s;flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hero-social-display:hover{background:var(--white)}
+.hero-cards{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem}
+.h-card{background:var(--card-white);border-radius:var(--rl);padding:1.2rem;border:1.5px solid rgba(255,255,255,0.45);transition:transform 0.22s,box-shadow 0.22s;position:relative}
+.h-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(59,34,114,0.13)}
+.h-card-icon{font-size:1.5rem;margin-bottom:0.5rem}
+.h-card-title{font-weight:700;font-size:0.85rem;color:var(--text-h);margin-bottom:0.25rem}
+.h-card-text{font-size:0.73rem;color:var(--text-soft);line-height:1.5}
+
+/* ── SECTIONS ── */
+.section{padding:6rem 0}
+.container{max-width:1200px;margin:0 auto;padding:0 3rem}
+.sec-eyebrow{font-family:var(--font-m);font-size:0.63rem;letter-spacing:0.25em;color:var(--mid);text-transform:uppercase;margin-bottom:0.65rem;display:flex;align-items:center;gap:0.5rem}
+.sec-eyebrow::before{content:'';display:block;width:14px;height:2px;background:var(--mid);border-radius:2px}
+.sec-h{font-family:var(--font-d);font-size:clamp(1.9rem,3.5vw,2.8rem);font-weight:900;color:var(--text-h);line-height:1.1;margin-bottom:2.5rem}
+.sec-h span{color:var(--mid)}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:5rem;align-items:start}
+.about-text p{color:var(--text-soft);margin-bottom:1.2rem;line-height:1.9;font-size:0.95rem}
+.about-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.5rem}
+.atag{font-size:0.75rem;font-weight:600;padding:0.38rem 0.9rem;border-radius:100px;background:var(--card-white);color:var(--mid);border:1.5px solid rgba(255,255,255,0.5)}
+.about-skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem}
+.about-skill-pill{background:var(--card);border:1.5px solid rgba(255,255,255,0.4);border-radius:var(--rl);padding:1rem 1.15rem;transition:transform 0.2s;position:relative}
+.about-skill-pill:hover{transform:translateY(-2px)}
+.asp-del{top:0.6rem;right:0.6rem;width:22px;height:22px}
+.asp-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.55rem}
+.asp-name{font-weight:700;font-size:0.85rem;color:var(--text-h)}
+.asp-pct{font-family:var(--font-m);font-size:0.68rem;color:var(--mid);font-weight:700}
+.asp-bar{height:4px;background:rgba(255,255,255,0.25);border-radius:4px;overflow:hidden}
+.asp-fill{height:100%;background:linear-gradient(90deg,var(--deep),var(--soft));border-radius:4px;width:0;transition:width 1.3s cubic-bezier(0.4,0,0.2,1)}
+
+/* SKILLS */
+.skills-display-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem}
+.skill-card{background:var(--card-white);border:1.5px solid rgba(255,255,255,0.45);border-radius:var(--rl);padding:1.4rem;transition:transform 0.22s,box-shadow 0.22s;position:relative}
+.skill-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(59,34,114,0.12)}
+.sc-cat{font-family:var(--font-m);font-size:0.58rem;letter-spacing:0.18em;color:var(--text-muted);text-transform:uppercase;margin-bottom:0.45rem}
+.sc-name{font-weight:700;font-size:0.95rem;color:var(--text-h);margin-bottom:0.3rem}
+.sc-level{font-size:0.75rem;color:var(--text-muted);margin-bottom:0.9rem}
+.sc-bar{height:5px;background:rgba(59,34,114,0.12);border-radius:5px;overflow:hidden}
+.sc-fill{height:100%;background:linear-gradient(90deg,var(--deep),var(--soft));border-radius:5px;width:0;transition:width 1.3s cubic-bezier(0.4,0,0.2,1)}
+.sc-pct{font-family:var(--font-m);font-size:0.68rem;color:var(--mid);font-weight:700;margin-top:0.45rem;text-align:right}
+.sc-delete{top:0.9rem;right:0.9rem}
+
+/* PROJECTS */
+.filter-row{display:flex;gap:0.45rem;flex-wrap:wrap;margin-bottom:2rem}
+.ftab{font-size:0.79rem;font-weight:600;padding:0.45rem 1rem;border-radius:100px;border:1.5px solid rgba(255,255,255,0.35);background:transparent;color:var(--text-soft);cursor:pointer;transition:all 0.2s}
+.ftab:hover,.ftab.on{background:var(--deep);border-color:var(--deep);color:var(--white)}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.2rem}
+.proj-card{background:var(--card-white);border:1.5px solid rgba(255,255,255,0.45);border-radius:var(--rxl);overflow:hidden;transition:transform 0.22s,box-shadow 0.22s;position:relative}
+.proj-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(59,34,114,0.14)}
+.proj-thumb{height:175px;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;overflow:hidden;border-bottom:1.5px solid rgba(255,255,255,0.35)}
+.proj-feat{position:absolute;top:0.9rem;right:0.9rem;font-family:var(--font-m);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(255,255,255,0.8);color:var(--mid);padding:0.28rem 0.65rem;border-radius:100px;font-weight:700}
+.proj-del{top:0.75rem;left:0.75rem;backdrop-filter:blur(4px)}
+.proj-body{padding:1.35rem}
+.proj-cat{font-family:var(--font-m);font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--mid);margin-bottom:0.45rem}
+.proj-title{font-family:var(--font-d);font-size:1.08rem;font-weight:800;color:var(--text-h);margin-bottom:0.45rem}
+.proj-desc{font-size:0.83rem;color:var(--text-soft);line-height:1.65;margin-bottom:1rem}
+.proj-stack{display:flex;flex-wrap:wrap;gap:0.38rem;margin-bottom:1rem}
+.stag{font-size:0.68rem;font-weight:600;padding:0.22rem 0.55rem;border-radius:8px;background:var(--card);color:var(--mid);border:1px solid rgba(255,255,255,0.4)}
+.proj-links{display:flex;gap:0.55rem}
+.plink{font-size:0.76rem;font-weight:700;padding:0.42rem 0.9rem;border-radius:100px;text-decoration:none;transition:all 0.2s}
+.plink.gh{background:var(--card);color:var(--mid);border:1.5px solid rgba(255,255,255,0.4)}
+.plink.gh:hover{background:rgba(255,255,255,0.7)}
+.plink.live{background:var(--deep);color:var(--white)}
+.plink.live:hover{background:var(--deep2)}
+
+/* CHATBOT */
+.chatbot-wrap{max-width:740px;margin:2.5rem auto 0;background:var(--card-white);border-radius:var(--rxl);overflow:hidden;border:1.5px solid rgba(255,255,255,0.5)}
+.cb-header{background:var(--deep);padding:1.1rem 1.4rem;display:flex;align-items:center;gap:0.85rem}
+.cb-av{width:38px;height:38px;border-radius:50%;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:1rem;border:2px solid rgba(255,255,255,0.3)}
+.cb-name{font-weight:700;font-size:0.88rem;color:var(--white)}
+.cb-dot-wrap{display:flex;align-items:center;gap:0.4rem;margin-top:0.15rem}
+.cb-status-txt{font-size:0.7rem;color:rgba(255,255,255,0.6)}
+.cb-messages{min-height:280px;max-height:440px;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:0.75rem}
+.cb-msg{max-width:80%;padding:0.7rem 1.1rem;border-radius:var(--rl);font-size:0.85rem;line-height:1.6;animation:msgIn 0.3s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.cb-msg.bot{background:var(--card);color:var(--text-h);align-self:flex-start;border-bottom-left-radius:6px}
+.cb-msg.user{background:var(--deep);color:var(--white);align-self:flex-end;border-bottom-right-radius:6px}
+.cb-msg.typing{display:flex;align-items:center;gap:0.3rem;padding:0.85rem 1.2rem}
+.cb-typing-dot{width:6px;height:6px;border-radius:50%;background:var(--text-muted);animation:typingBounce 1.2s infinite}
+.cb-typing-dot:nth-child(2){animation-delay:0.2s}
+.cb-typing-dot:nth-child(3){animation-delay:0.4s}
+@keyframes typingBounce{0%,60%,100%{transform:translateY(0);opacity:0.4}30%{transform:translateY(-4px);opacity:1}}
+.cb-empty-state{text-align:center;padding:2.5rem 1.5rem;color:var(--text-muted);font-size:0.85rem;line-height:1.7}
+.cb-empty-state .cb-ph-icon{font-size:2.2rem;margin-bottom:0.6rem}
+.cb-empty-state strong{display:block;font-family:var(--font-d);font-size:1.05rem;font-weight:800;color:var(--text-h);margin-bottom:0.4rem}
+.cb-footer{background:var(--card);padding:0.9rem 1.2rem;border-top:1.5px solid rgba(255,255,255,0.3);display:flex;gap:0.55rem}
+.cb-input{flex:1;background:var(--card-white);border:1.5px solid rgba(255,255,255,0.5);border-radius:100px;padding:0.6rem 1.2rem;color:var(--text-h);font-family:var(--font-b);font-size:0.85rem;outline:none;transition:border-color 0.2s}
+.cb-input:focus{border-color:var(--mid)}
+.cb-input:disabled{opacity:0.5;cursor:not-allowed}
+.cb-send{background:var(--deep);border:none;border-radius:100px;padding:0.6rem 1.2rem;color:var(--white);font-weight:700;font-size:0.8rem;cursor:pointer;transition:background 0.2s}
+.cb-send:hover{background:var(--deep2)}
+.cb-send:disabled{opacity:0.5;cursor:not-allowed}
+
+/* AGENTS */
+.agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.1rem}
+.agent-card{background:var(--card-white);border:1.5px solid rgba(255,255,255,0.45);border-radius:var(--rxl);padding:1.6rem;transition:transform 0.22s,box-shadow 0.22s;position:relative}
+.agent-card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(59,34,114,0.12)}
+.ac-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.1rem}
+.ac-icon{width:46px;height:46px;border-radius:var(--r);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:1.5px solid rgba(255,255,255,0.4)}
+.ac-badge{font-family:var(--font-m);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.28rem 0.6rem;border-radius:100px;font-weight:700;border:1.5px solid}
+.ac-badge.active{background:rgba(59,34,114,0.08);color:var(--mid);border-color:rgba(107,72,176,0.25)}
+.ac-badge.building{background:rgba(200,160,0,0.08);color:#8a6800;border-color:rgba(200,160,0,0.2)}
+.ac-name{font-family:var(--font-d);font-size:1rem;font-weight:800;color:var(--text-h);margin-bottom:0.45rem}
+.ac-purpose{font-size:0.82rem;color:var(--text-soft);line-height:1.65;margin-bottom:1.1rem}
+.ac-tools{display:flex;flex-wrap:wrap;gap:0.38rem;margin-bottom:0.85rem}
+.ac-tool{font-size:0.67rem;font-weight:600;padding:0.2rem 0.5rem;border-radius:7px;background:var(--card);color:var(--mid);border:1px solid rgba(255,255,255,0.4)}
+.ac-flow{font-size:0.74rem;color:var(--text-light);border-top:1.5px solid rgba(255,255,255,0.25);padding-top:0.8rem;font-family:var(--font-m);line-height:1.6}
+.tl-del{top:0.85rem;right:0.85rem}
+.item-del{top:0.85rem;right:0.85rem}
+
+/* EDUCATION */
+.timeline{position:relative;margin-top:2rem;padding-left:2.5rem}
+.timeline::before{content:'';position:absolute;left:0;top:10px;bottom:0;width:2px;background:linear-gradient(180deg,var(--mid),rgba(185,160,225,0.2))}
+.tl-item{position:relative;padding-left:2rem;padding-bottom:2.5rem}
+.tl-item::before{content:'';position:absolute;left:-6px;top:9px;width:14px;height:14px;border-radius:50%;background:var(--mid);border:3px solid var(--card-white);transition:transform 0.2s}
+.tl-item:hover::before{transform:scale(1.35)}
+.tl-date{font-family:var(--font-m);font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--mid);margin-bottom:0.55rem}
+.tl-card{background:var(--card-white);border:1.5px solid rgba(255,255,255,0.45);border-radius:var(--rl);padding:1.35rem;transition:border-color 0.22s,transform 0.22s;position:relative}
+.tl-item:hover .tl-card{border-color:rgba(255,255,255,0.8);transform:translateX(4px)}
+.tl-degree{font-family:var(--font-d);font-size:0.98rem;font-weight:800;color:var(--text-h);margin-bottom:0.22rem}
+.tl-school{font-size:0.83rem;color:var(--mid);font-weight:600;margin-bottom:0.6rem}
+.tl-desc{font-size:0.8rem;color:var(--text-soft);line-height:1.7}
+
+/* EXPERIENCE */
+.exp-grid{display:flex;flex-direction:column;gap:1rem}
+.exp-card{background:var(--card-white);border:1.5px solid rgba(255,255,255,0.45);border-radius:var(--rxl);padding:1.75rem;display:grid;grid-template-columns:auto 1fr;gap:1.6rem;align-items:start;transition:transform 0.22s,box-shadow 0.22s;position:relative}
+.exp-card:hover{transform:translateX(5px);box-shadow:0 10px 30px rgba(59,34,114,0.1)}
+.exp-period{font-family:var(--font-m);font-size:0.65rem;letter-spacing:0.12em;color:var(--mid);text-transform:uppercase;white-space:nowrap;padding-top:0.25rem}
+.exp-badge{display:inline-flex;align-items:center;gap:0.35rem;font-family:var(--font-m);font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;background:var(--card);color:var(--mid);border:1.5px solid rgba(255,255,255,0.4);padding:0.22rem 0.6rem;border-radius:100px;margin-bottom:0.55rem;font-weight:700}
+.exp-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--mid)}
+.exp-title{font-family:var(--font-d);font-size:1rem;font-weight:800;color:var(--text-h);margin-bottom:0.2rem}
+.exp-company{font-size:0.83rem;color:var(--mid);font-weight:600;margin-bottom:0.6rem}
+.exp-desc{font-size:0.83rem;color:var(--text-soft);line-height:1.75}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:5rem;margin-top:2.5rem}
+.contact-info h3{font-family:var(--font-d);font-size:1.5rem;font-weight:800;color:var(--text-h);margin-bottom:0.85rem}
+.contact-info p{font-size:0.92rem;color:var(--text-soft);line-height:1.85;margin-bottom:1.75rem}
+.social-list{display:flex;flex-direction:column;gap:0.6rem}
+.social-link-wrap{position:relative}
+.social-link{display:flex;align-items:center;gap:0.9rem;padding:0.85rem 1.15rem;background:var(--card-white);border:1.5px solid rgba(255,255,255,0.45);border-radius:var(--rl);text-decoration:none;color:var(--text-h);transition:border-color 0.22s,transform 0.22s}
+.social-link:hover{border-color:rgba(255,255,255,0.85);transform:translateX(5px)}
+.soc-icon{width:36px;height:36px;border-radius:var(--r);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:0.95rem;border:1px solid rgba(255,255,255,0.35)}
+.soc-name{font-weight:700;font-size:0.83rem}
+.soc-handle{font-size:0.73rem;color:var(--text-muted)}
+.soc-arrow{margin-left:auto;color:var(--text-light);font-size:0.8rem}
+.soc-del-btn{position:absolute;top:50%;right:0.75rem;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:rgba(200,180,230,0.5);border:none;cursor:pointer;font-size:0.7rem;color:var(--text-soft);display:none;align-items:center;justify-content:center;transition:background 0.2s}
+.soc-del-btn:hover{background:rgba(180,50,50,0.2);color:#a03030}
+body.admin-mode .soc-del-btn{display:flex}
+.contact-form{display:flex;flex-direction:column;gap:1rem}
+.fg{display:flex;flex-direction:column;gap:0.42rem}
+.fg label{font-size:0.75rem;font-weight:700;color:var(--mid);letter-spacing:0.04em}
+.fg input,.fg textarea,.fg select{background:var(--card-white);border:1.5px solid rgba(255,255,255,0.5);border-radius:var(--r);padding:0.75rem 0.95rem;color:var(--text-h);font-family:var(--font-b);font-size:0.86rem;outline:none;transition:border-color 0.2s}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:rgba(107,72,176,0.6);background:var(--white)}
+.fg textarea{resize:vertical;min-height:125px;line-height:1.6}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem}
+.btn-submit{background:var(--deep);color:var(--white);font-weight:700;font-size:0.9rem;padding:0.9rem 2rem;border-radius:100px;border:none;cursor:pointer;transition:background 0.22s,transform 0.18s;width:100%}
+.btn-submit:hover{background:var(--deep2);transform:translateY(-2px)}
+
+footer{background:var(--deep);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-brand{font-family:var(--font-d);font-size:1rem;font-weight:700;color:var(--white)}
+.footer-copy{font-size:0.78rem;color:rgba(255,255,255,0.45)}
+.footer-sig{font-family:var(--font-m);font-size:0.65rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:0.07s}.d2{transition-delay:0.14s}.d3{transition-delay:0.21s}.d4{transition-delay:0.28s}
+
+/* TOAST */
+.toast{position:fixed;bottom:4rem;right:2rem;background:var(--deep);color:var(--white);font-size:0.82rem;font-weight:600;padding:0.75rem 1.4rem;border-radius:100px;z-index:9000;opacity:0;transform:translateY(10px);transition:all 0.3s;pointer-events:none}
+.toast.show{opacity:1;transform:none}
+.empty-state{text-align:center;padding:2.5rem;color:var(--text-muted);font-size:0.9rem;background:var(--card-white);border-radius:var(--rl);border:1.5px dashed rgba(255,255,255,0.4)}
+
+@media(max-width:960px){
+#hero{grid-template-columns:1fr;gap:2.5rem;padding:7rem 2rem 4rem}.hero-right{order:-1}
+.about-grid{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr}
+.container{padding:0 2rem}.af-grid-2,.af-grid-3,.af-grid-4{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){
+nav{padding:1rem 1.25rem}.nav-links{display:none}.hamburger{display:flex}
+.exp-card{grid-template-columns:1fr}.fg-row{grid-template-columns:1fr}
+footer{padding:2rem 1.5rem}#hero{padding:7rem 1.25rem 3rem}
+.af-grid-2,.af-grid-3,.af-grid-4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="sp"></div>
+<div class="toast" id="toast"></div>
+
+<!-- ════════════════════════════════
+     ADMIN LOGIN OVERLAY
+     Access: open file URL + #admin-access
+     ════════════════════════════════ -->
+<div id="admin-login">
+  <div class="al-box">
+    <div class="al-logo">TK</div>
+    <div class="al-sub">Admin Access</div>
+    <label class="al-label">Password</label>
+    <input class="al-input" type="password" id="al-pw" placeholder="Enter admin password" autocomplete="off">
+    <button class="al-btn" onclick="attemptLogin()">Unlock Admin Mode →</button>
+    <div class="al-err" id="al-err">Incorrect password. Access denied.</div>
+    <div class="al-close" onclick="closeLogin()">← Return to portfolio</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     ADMIN STATUS BAR (admin mode only)
+     ════════════════════════════════ -->
+<div id="admin-bar">
+  <div class="ab-left">
+    <span class="ab-badge"><span class="ab-dot"></span>Admin Mode</span>
+    <span class="ab-label">All editing tools are active</span>
+  </div>
+  <button class="ab-logout" onclick="logout()">Lock &amp; Exit Admin →</button>
+</div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-box">
+    <div class="ld-init">TK</div>
+    <div class="ld-sub">Portfolio</div>
+    <div class="ld-bar"><div class="ld-fill"></div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-brand">Portofolio</a>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#agents">AI Agents</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact" class="pill">About me</a></li>
+  </ul>
+  <button class="hamburger" id="hbg"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="#hero" onclick="closeMob()">Home</a>
+  <a href="#projects" onclick="closeMob()">Projects</a>
+  <a href="#agents" onclick="closeMob()">AI Agents</a>
+  <a href="#education" onclick="closeMob()">Education</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-chip" id="hero-chip-text">// AI Automation Developer</div>
+    <!-- ADMIN ONLY: edit hero chip -->
+    <div class="admin-only edit-inline-wrap" style="margin-top:-1rem;margin-bottom:1rem">
+      <button class="edit-inline-btn" onclick="toggleForm('chip-edit-form','btn-chip-edit','✏️ Edit Top Label')" id="btn-chip-edit">✏️ Edit Top Label</button>
+      <div class="edit-inline-form" id="chip-edit-form">
+        <input type="text" id="chip-input" placeholder="// AI Automation Developer" style="width:100%;background:var(--white);border:1.5px solid rgba(185,160,225,0.5);border-radius:var(--r);padding:0.7rem 0.95rem;color:var(--text-h);font-family:var(--font-b);font-size:0.9rem;outline:none">
+        <div class="af-bottom"><button class="btn-save" onclick="saveHeroChip()">Save</button></div>
+      </div>
+    </div>
+    <h1 class="hero-h1">Tayyaba<em>Khalid</em></h1>
+    <p class="hero-role" id="hero-role-text">AI Automation &amp; AI Agent Developer</p>
+    <!-- ADMIN ONLY: edit hero role -->
+    <div class="admin-only edit-inline-wrap">
+      <button class="edit-inline-btn" onclick="toggleForm('role-edit-form','btn-role-edit','✏️ Edit Tagline')" id="btn-role-edit">✏️ Edit Tagline</button>
+      <div class="edit-inline-form" id="role-edit-form">
+        <input type="text" id="role-input" placeholder="AI Automation & AI Agent Developer" style="width:100%;background:var(--white);border:1.5px solid rgba(185,160,225,0.5);border-radius:var(--r);padding:0.7rem 0.95rem;color:var(--text-h);font-family:var(--font-b);font-size:0.9rem;outline:none">
+        <div class="af-bottom"><button class="btn-save" onclick="saveHeroRole()">Save</button></div>
+      </div>
+    </div>
+    <p class="hero-desc" id="hero-desc-text">Building intelligent AI automations, AI agents, and workflow systems using n8n and modern AI technologies. Turning complex processes into seamless, intelligent solutions.</p>
+    <!-- ADMIN ONLY: edit description -->
+    <div class="admin-only edit-inline-wrap">
+      <button class="edit-inline-btn" onclick="toggleForm('desc-edit-form','btn-desc-edit','✏️ Edit Description')" id="btn-desc-edit">✏️ Edit Description</button>
+      <div class="edit-inline-form" id="desc-edit-form">
+        <textarea id="desc-input" placeholder="Write your hero description..."></textarea>
+        <div class="af-bottom"><button class="btn-save" onclick="saveHeroDesc()">Save</button></div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-deep">View Projects ↓</a>
+      <a href="#contact" class="btn-outline">Contact Me</a>
+    </div>
+    <div class="hero-stats" id="hero-stats"></div>
+    <!-- ADMIN ONLY: edit stats -->
+    <div class="admin-only edit-inline-wrap">
+      <button class="edit-inline-btn" onclick="toggleForm('stats-edit-form','btn-stats-edit','✏️ Edit Stats')" id="btn-stats-edit">✏️ Edit Stats</button>
+      <div class="edit-inline-form" id="stats-edit-form">
+        <div class="hstat-edit-grid">
+          <div class="hstat-field"><label>AI Projects Number</label><input type="text" id="stat1-num" placeholder="15"></div>
+          <div class="hstat-field"><label>AI Agents Number</label><input type="text" id="stat2-num" placeholder="10"></div>
+          <div class="hstat-field"><label>Workflows Number</label><input type="text" id="stat3-num" placeholder="50"></div>
+        </div>
+        <div class="hstat-edit-grid">
+          <div class="hstat-field"><label>Label 1</label><input type="text" id="stat1-label" placeholder="AI Projects"></div>
+          <div class="hstat-field"><label>Label 2</label><input type="text" id="stat2-label" placeholder="AI Agents"></div>
+          <div class="hstat-field"><label>Label 3</label><input type="text" id="stat3-label" placeholder="Workflows Built"></div>
+        </div>
+        <div class="af-bottom"><button class="btn-save" onclick="saveHeroStats()">Save Stats</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="avatar-wrap">
+      <div class="avatar-circle" id="avatar-circle">
+        <span id="avatar-fallback">TK</span>
+        <img id="avatar-img" style="display:none" alt="Profile picture">
+      </div>
+      <!-- ADMIN ONLY: profile picture upload -->
+      <div class="admin-only avatar-actions">
+        <label class="avatar-upload-btn">📷 Upload Photo
+          <input type="file" id="avatar-upload" accept="image/*" style="display:none">
+        </label>
+        <button class="avatar-remove-btn" id="avatar-remove-btn" onclick="removeAvatar()" style="display:none">Remove photo</button>
+      </div>
+      <div class="avatar-name">Tayyaba Khalid</div>
+      <div class="avatar-sub" id="avatar-sub-text">AI Automation Developer</div>
+      <!-- ADMIN ONLY: edit avatar subtitle -->
+      <div class="admin-only edit-inline-wrap" style="width:100%">
+        <button class="edit-inline-btn" onclick="toggleForm('avsub-edit-form','btn-avsub-edit','✏️ Edit Subtitle')" id="btn-avsub-edit">✏️ Edit Subtitle</button>
+        <div class="edit-inline-form" id="avsub-edit-form">
+          <input type="text" id="avsub-input" placeholder="AI Automation Developer" style="width:100%;background:var(--white);border:1.5px solid rgba(185,160,225,0.5);border-radius:var(--r);padding:0.7rem 0.95rem;color:var(--text-h);font-family:var(--font-b);font-size:0.9rem;outline:none">
+          <div class="af-bottom"><button class="btn-save" onclick="saveAvatarSub()">Save</button></div>
+        </div>
+      </div>
+      <div class="hero-social-row">
+        <a class="hero-social-display" id="hero-link-display" href="#" target="_blank">instagram.com/tayyaba_khalid</a>
+        <!-- edit button: admin only -->
+        <button class="btn-edit-link admin-only" onclick="toggleLinkEdit()">✏️ Edit</button>
+      </div>
+      <div class="hero-social-edit" id="hero-link-edit">
+        <div class="af-field"><label>Display Text</label><input type="text" id="link-text-input" placeholder="linkedin.com/in/tayyaba"></div>
+        <div class="af-field"><label>Full URL</label><input type="text" id="link-url-input" placeholder="https://linkedin.com/in/tayyaba"></div>
+        <div class="hero-social-edit-btns">
+          <button class="btn-save-link" onclick="saveHeroLink()">Save</button>
+          <button class="btn-cancel-link" onclick="toggleLinkEdit()">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <!-- ADMIN ONLY: manage hero highlight cards -->
+    <div class="admin-only">
+      <div class="manager-panel" style="padding:1.25rem 1.5rem;margin-bottom:0.75rem">
+        <div class="mp-header" style="margin-bottom:0">
+          <div><div class="mp-title" style="font-size:0.88rem">Manage Highlight Cards</div><div class="mp-sub">The 4 cards below your profile picture.</div></div>
+          <button class="btn-add" id="btn-hcard-toggle" style="font-size:0.75rem;padding:0.45rem 0.9rem">+ Add Card</button>
+        </div>
+        <div class="add-form" id="hcard-add-form" style="padding:1.1rem;margin-top:1rem">
+          <div class="af-grid-3">
+            <div class="af-field"><label>Icon (emoji)</label><input type="text" id="hc-icon" placeholder="⚡" maxlength="4" value="⚡"></div>
+            <div class="af-field" style="grid-column:span 2"><label>Title *</label><input type="text" id="hc-title" placeholder="n8n Expert" maxlength="30"></div>
+          </div>
+          <div class="af-field"><label>Description *</label><input type="text" id="hc-text" placeholder="Advanced workflow automation" maxlength="60"></div>
+          <div class="af-bottom">
+            <button class="btn-save" onclick="addHeroCard()">Save Card</button>
+            <button class="btn-cancel" onclick="toggleForm('hcard-add-form','btn-hcard-toggle','+ Add Card')">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-cards" id="hero-cards"></div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about" class="section" style="background:var(--bg-light)">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="sec-eyebrow" id="about-eyebrow-text">About Me</div>
+        <h2 class="sec-h" id="about-heading-text">Building Intelligent<br><span>Automation</span> Systems</h2>
+        <div class="about-text" id="about-text-paras">
+          <p>I'm a passionate AI Automation and AI Agent Developer who specializes in creating intelligent workflow systems that bridge the gap between complex business needs and cutting-edge AI technology.</p>
+          <p>My focus is on n8n automation, deploying autonomous AI agents, and building chatbot systems that genuinely understand user needs. I believe in AI as a collaborative partner that amplifies human potential.</p>
+          <p>Every automation I build is designed with one goal: to free people from mundane tasks so they can focus on what truly matters.</p>
+        </div>
+        <div class="about-tags" id="about-tags-display">
+          <span class="atag">n8n Automation</span><span class="atag">AI Agents</span>
+          <span class="atag">Workflow Design</span><span class="atag">API Integration</span>
+          <span class="atag">Chatbot Systems</span><span class="atag">Prompt Engineering</span>
+          <span class="atag">Web Automation</span>
+        </div>
+        <!-- ADMIN ONLY: edit About Me content -->
+        <div class="admin-only">
+          <div class="manager-panel" style="margin-top:1.5rem">
+            <div class="mp-header" style="margin-bottom:0">
+              <div><div class="mp-title">Edit About Me Section</div><div class="mp-sub">Update the eyebrow label, heading, paragraphs, and tags.</div></div>
+              <button class="btn-add" id="btn-about-toggle">✏️ Edit Section</button>
+            </div>
+            <div class="add-form" id="about-edit-form">
+              <div class="af-title">About Me Content</div>
+              <div class="af-field" style="margin-bottom:0.75rem"><label>Eyebrow Label (small label above heading)</label><input type="text" id="ab-eyebrow" placeholder="About Me"></div>
+              <div class="af-grid-2">
+                <div class="af-field"><label>Heading — Line 1</label><input type="text" id="ab-heading1" placeholder="Building Intelligent"></div>
+                <div class="af-field"><label>Heading — Highlighted Word(s)</label><input type="text" id="ab-heading2" placeholder="Automation Systems"></div>
+              </div>
+              <div class="af-field" style="margin-top:0.75rem"><label>Paragraph 1</label><textarea id="ab-para1" placeholder="First paragraph..."></textarea></div>
+              <div class="af-field" style="margin-top:0.75rem"><label>Paragraph 2</label><textarea id="ab-para2" placeholder="Second paragraph..."></textarea></div>
+              <div class="af-field" style="margin-top:0.75rem"><label>Paragraph 3</label><textarea id="ab-para3" placeholder="Third paragraph..."></textarea></div>
+              <div class="af-field" style="margin-top:0.75rem"><label>Tags (comma separated)</label><input type="text" id="ab-tags" placeholder="n8n Automation, AI Agents, Workflow Design..."></div>
+              <div class="af-bottom">
+                <button class="btn-save" onclick="saveAboutSection()">Save All Changes</button>
+                <button class="btn-cancel" onclick="toggleForm('about-edit-form','btn-about-toggle','✏️ Edit Section')">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="sec-eyebrow">Core Skills</div>
+        <h2 class="sec-h" style="font-size:1.7rem;margin-bottom:1.4rem">What I <span>Do Best</span></h2>
+        <!-- ADMIN ONLY -->
+        <div class="admin-only">
+          <div class="manager-panel">
+            <div class="mp-header">
+              <div><div class="mp-title">Manage "What I Do Best"</div><div class="mp-sub">These appear as bars in the About section.</div></div>
+              <button class="btn-add" id="btn-bestskill-toggle">+ Add Item</button>
+            </div>
+            <div class="add-form" id="bestskill-add-form">
+              <div class="af-title">New "Do Best" Item</div>
+              <div class="af-grid-3">
+                <div class="af-field" style="grid-column:span 2"><label>Skill / Strength Name *</label><input type="text" id="bs-name" placeholder="e.g. n8n Automation" maxlength="30"></div>
+                <div class="af-field">
+                  <label>Level: <span id="bs-pct-show">85</span>%</label>
+                  <input type="range" id="bs-pct" min="10" max="100" value="85" oninput="document.getElementById('bs-pct-show').textContent=this.value">
+                </div>
+              </div>
+              <div class="af-bottom">
+                <button class="btn-save" onclick="addBestSkill()">Save</button>
+                <button class="btn-cancel" onclick="toggleForm('bestskill-add-form','btn-bestskill-toggle','+ Add Item')">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-skills-grid" id="about-skills-grid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SKILLS ══ -->
+<section id="skills" class="section" style="background:var(--bg)">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-eyebrow">My Expertise</div>
+      <h2 class="sec-h">Skills &amp; <span>Expertise</span></h2>
+    </div>
+    <!-- ADMIN ONLY -->
+    <div class="admin-only">
+      <div class="manager-panel">
+        <div class="mp-header">
+          <div><div class="mp-title">Manage Skills</div><div class="mp-sub">Add or remove skills — saves automatically.</div></div>
+          <button class="btn-add" id="btn-skill-toggle">+ Add Skill</button>
+        </div>
+        <div class="add-form" id="skill-add-form">
+          <div class="af-title">New Skill</div>
+          <div class="af-grid-4">
+            <div class="af-field"><label>Skill Name *</label><input type="text" id="sk-name" placeholder="e.g. n8n Automation" maxlength="30"></div>
+            <div class="af-field"><label>Category</label>
+              <select id="sk-cat"><option value="Automation">Automation</option><option value="AI Dev">AI Development</option><option value="Tools">Tools</option><option value="Design">Design</option><option value="Technical">Technical</option><option value="Other">Other</option></select>
+            </div>
+            <div class="af-field">
+              <label>Proficiency: <span id="sk-pct-show">85</span>% <span class="pct-lbl" id="sk-pct-lbl">Advanced</span></label>
+              <input type="range" id="sk-pct" min="10" max="100" value="85" oninput="document.getElementById('sk-pct-show').textContent=this.value;document.getElementById('sk-pct-lbl').textContent=levelLabel(+this.value)">
+            </div>
+            <button class="btn-save" style="align-self:flex-end" onclick="addSkill()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="skills-display-grid" id="skills-display"></div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section id="projects" class="section" style="background:var(--bg-light)">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-eyebrow">Portfolio</div>
+      <h2 class="sec-h">My <span>Projects</span></h2>
+    </div>
+    <!-- ADMIN ONLY -->
+    <div class="admin-only">
+      <div class="manager-panel">
+        <div class="mp-header">
+          <div><div class="mp-title">Manage Projects</div><div class="mp-sub">Add new projects — hover a card to delete it.</div></div>
+          <button class="btn-add" id="btn-proj-toggle">+ Add Project</button>
+        </div>
+        <div class="add-form" id="proj-add-form">
+          <div class="af-title">New Project</div>
+          <div class="af-grid-3">
+            <div class="af-field"><label>Project Title *</label><input type="text" id="pj-title" placeholder="My Awesome Project" maxlength="60"></div>
+            <div class="af-field"><label>Category</label><select id="pj-cat"><option value="AI Agent">AI Agent</option><option value="Automation">Automation</option><option value="AI Workflow">AI Workflow</option><option value="Chatbot">Chatbot</option><option value="Other">Other</option></select></div>
+            <div class="af-field"><label>Icon (emoji)</label><input type="text" id="pj-icon" placeholder="🤖" maxlength="4" value="🚀"></div>
+          </div>
+          <div class="af-field" style="margin-bottom:0.75rem"><label>Description *</label><textarea id="pj-desc" placeholder="What does this project do?"></textarea></div>
+          <div class="af-grid-2">
+            <div class="af-field"><label>Tech Stack (comma separated)</label><input type="text" id="pj-stack" placeholder="n8n, GPT-4, Telegram"></div>
+            <div class="af-field"><label>Card Background Color</label>
+              <select id="pj-bg"><option value="#dfd0f5">Lavender</option><option value="#d0dff5">Sky Blue</option><option value="#d0f5e0">Mint Green</option><option value="#f5f0d0">Soft Yellow</option><option value="#f5d0e0">Rose Pink</option><option value="#d0f0f5">Aqua</option></select>
+            </div>
+          </div>
+          <div class="af-grid-2" style="margin-top:0.75rem">
+            <div class="af-field"><label>GitHub Link</label><input type="text" id="pj-gh" placeholder="https://github.com/you/project"></div>
+            <div class="af-field"><label>Live Demo Link</label><input type="text" id="pj-live" placeholder="https://yourproject.com"></div>
+          </div>
+          <div class="af-bottom">
+            <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--text-soft);cursor:pointer"><input type="checkbox" id="pj-featured" style="accent-color:var(--mid);width:15px;height:15px"> Mark as Featured</label>
+            <button class="btn-save" onclick="addProject()">Save Project</button>
+            <button class="btn-cancel" onclick="toggleForm('proj-add-form','btn-proj-toggle','+ Add Project')">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-row" id="filter-row"></div>
+    <div class="proj-grid" id="proj-grid"></div>
+  </div>
+</section>
+
+<!-- ══ CHATBOT ══ -->
+<section id="chatbot" class="section" style="background:var(--bg)">
+  <div class="container">
+    <div style="text-align:center" class="reveal">
+      <div class="sec-eyebrow" style="justify-content:center">AI Assistant</div>
+      <h2 class="sec-h" style="text-align:center">Chat with My <span>AI Agent</span></h2>
+      <p style="color:var(--text-soft);max-width:460px;margin:0 auto;font-size:0.93rem">Experience intelligent AI automation — powered by n8n workflows.</p>
+    </div>
+
+    <!-- ADMIN ONLY: connect n8n workflow -->
+    <div class="admin-only">
+      <div class="manager-panel" style="max-width:740px;margin:1.5rem auto 0">
+        <div class="mp-header" style="margin-bottom:0">
+          <div><div class="mp-title">Connect Your n8n Workflow</div><div class="mp-sub">Paste your n8n Chat Trigger webhook URL — messages sent here will be forwarded to your workflow.</div></div>
+        </div>
+        <div class="add-form open" style="margin-top:1.25rem">
+          <div class="af-field" style="margin-bottom:0.85rem">
+            <label>n8n Webhook URL *</label>
+            <input type="text" id="cb-webhook" placeholder="https://your-instance.app.n8n.cloud/webhook/xxxxxxxx/chat">
+          </div>
+          <div class="af-grid-2">
+            <div class="af-field"><label>Assistant Display Name</label><input type="text" id="cb-title" placeholder="Tayyaba's AI Assistant"></div>
+            <div class="af-field"><label>Initial Greeting Message</label><input type="text" id="cb-greeting" placeholder="Hi! How can I help you today?"></div>
+          </div>
+          <div class="af-note" style="margin-top:0.6rem;font-size:0.75rem;color:var(--text-muted);margin-left:0">
+            📘 In n8n: add a <strong>Chat Trigger</strong> node, set "Respond to Webhook" mode, activate the workflow, and paste the Production Webhook URL above. Make sure CORS / "Allowed Origins" includes this site's domain (or <strong>*</strong> for testing).
+          </div>
+          <div class="af-bottom" style="margin-top:1rem">
+            <button class="btn-save" onclick="saveChatbotConfig()">Save &amp; Connect</button>
+            <button class="btn-cancel" onclick="testChatbotConnection()">Test Connection</button>
+            <span id="cb-test-result" style="font-size:0.78rem;font-weight:600"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chatbot-wrap reveal d2">
+      <div class="cb-header">
+        <div class="cb-av">🤖</div>
+        <div><div class="cb-name" id="cb-display-name">Tayyaba's AI Assistant</div>
+        <div class="cb-dot-wrap"><span class="cb-dot" style="width:6px;height:6px;border-radius:50%;background:#7eff9a;display:inline-block;animation:pdot 2s infinite"></span><span class="cb-status-txt" id="cb-status-text">Online &amp; Ready</span></div></div>
+      </div>
+      <div class="cb-messages" id="cb-messages"></div>
+      <div class="cb-footer">
+        <input class="cb-input" type="text" id="cb-user-input" placeholder="Ask me about AI automation, n8n, workflows..." onkeydown="if(event.key==='Enter')sendChatMessage()">
+        <button class="cb-send" id="cb-send-btn" onclick="sendChatMessage()">Send ↗</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ AGENTS ══ -->
+<section id="agents" class="section" style="background:var(--bg-light)">
+  <div class="container">
+    <div class="reveal"><div class="sec-eyebrow">AI Agents</div><h2 class="sec-h">Intelligent <span>Agents</span> Built</h2></div>
+    <!-- ADMIN ONLY -->
+    <div class="admin-only">
+      <div class="manager-panel">
+        <div class="mp-header">
+          <div><div class="mp-title">Manage AI Agents</div><div class="mp-sub">Add new agents — hover a card to delete.</div></div>
+          <button class="btn-add" id="btn-agent-toggle">+ Add Agent</button>
+        </div>
+        <div class="add-form" id="agent-add-form">
+          <div class="af-title">New AI Agent</div>
+          <div class="af-grid-3">
+            <div class="af-field"><label>Agent Name *</label><input type="text" id="ag-name" placeholder="SupportBot Agent" maxlength="50"></div>
+            <div class="af-field"><label>Icon (emoji)</label><input type="text" id="ag-icon" placeholder="🤖" maxlength="4" value="🤖"></div>
+            <div class="af-field"><label>Status</label><select id="ag-status"><option value="active">● Active</option><option value="building">⟳ Building</option></select></div>
+          </div>
+          <div class="af-field" style="margin-bottom:0.75rem"><label>Purpose / Description *</label><textarea id="ag-purpose" placeholder="What does this agent do?"></textarea></div>
+          <div class="af-grid-2">
+            <div class="af-field"><label>Tools Used (comma separated)</label><input type="text" id="ag-tools" placeholder="n8n, GPT-4, Slack"></div>
+            <div class="af-field"><label>Workflow Steps</label><input type="text" id="ag-flow" placeholder="Input → Process → Output"></div>
+          </div>
+          <div class="af-bottom">
+            <button class="btn-save" onclick="addAgent()">Save Agent</button>
+            <button class="btn-cancel" onclick="toggleForm('agent-add-form','btn-agent-toggle','+ Add Agent')">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="agents-grid" id="agents-grid"></div>
+  </div>
+</section>
+
+<!-- ══ EDUCATION ══ -->
+<section id="education" class="section" style="background:var(--bg)">
+  <div class="container">
+    <div class="reveal"><div class="sec-eyebrow">Education</div><h2 class="sec-h">Academic <span>Journey</span></h2></div>
+    <!-- ADMIN ONLY -->
+    <div class="admin-only">
+      <div class="manager-panel">
+        <div class="mp-header">
+          <div><div class="mp-title">Manage Education</div><div class="mp-sub">Add degrees, courses, certifications.</div></div>
+          <button class="btn-add" id="btn-edu-toggle">+ Add Education</button>
+        </div>
+        <div class="add-form" id="edu-add-form">
+          <div class="af-title">New Education Entry</div>
+          <div class="af-grid-3">
+            <div class="af-field"><label>Degree / Course *</label><input type="text" id="ed-degree" placeholder="Bachelor's in Computer Science" maxlength="80"></div>
+            <div class="af-field"><label>Institution *</label><input type="text" id="ed-school" placeholder="University of XYZ" maxlength="80"></div>
+            <div class="af-field"><label>Year / Period *</label><input type="text" id="ed-date" placeholder="2022 — 2026" maxlength="30"></div>
+          </div>
+          <div class="af-field" style="margin-top:0.75rem"><label>Description</label><textarea id="ed-desc" placeholder="GPA, achievements, subjects..."></textarea></div>
+          <div class="af-bottom">
+            <button class="btn-save" onclick="addEducation()">Save Entry</button>
+            <button class="btn-cancel" onclick="toggleForm('edu-add-form','btn-edu-toggle','+ Add Education')">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<!-- ══ EXPERIENCE ══ -->
+<section id="experience" class="section" style="background:var(--bg-light)">
+  <div class="container">
+    <div class="reveal"><div class="sec-eyebrow">Experience</div><h2 class="sec-h">Work <span>Experience</span></h2></div>
+    <!-- ADMIN ONLY -->
+    <div class="admin-only">
+      <div class="manager-panel">
+        <div class="mp-header">
+          <div><div class="mp-title">Manage Experience</div><div class="mp-sub">Add jobs, freelance work, internships.</div></div>
+          <button class="btn-add" id="btn-exp-toggle">+ Add Experience</button>
+        </div>
+        <div class="add-form" id="exp-add-form">
+          <div class="af-title">New Work Experience</div>
+          <div class="af-grid-3">
+            <div class="af-field"><label>Job Title *</label><input type="text" id="ex-title" placeholder="AI Automation Developer" maxlength="80"></div>
+            <div class="af-field"><label>Company / Client *</label><input type="text" id="ex-company" placeholder="Company / Freelance" maxlength="80"></div>
+            <div class="af-field"><label>Period *</label><input type="text" id="ex-period" placeholder="2024 — Present" maxlength="30"></div>
+          </div>
+          <div class="af-field" style="margin-top:0.75rem"><label>Description</label><textarea id="ex-desc" placeholder="Your role, responsibilities, achievements..."></textarea></div>
+          <div class="af-bottom">
+            <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--text-soft);cursor:pointer"><input type="checkbox" id="ex-current" style="accent-color:var(--mid);width:15px;height:15px"> Current Role</label>
+            <button class="btn-save" onclick="addExperience()">Save</button>
+            <button class="btn-cancel" onclick="toggleForm('exp-add-form','btn-exp-toggle','+ Add Experience')">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="exp-grid" id="exp-grid"></div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact" class="section" style="background:var(--bg)">
+  <div class="container">
+    <div style="text-align:center;max-width:520px;margin:0 auto" class="reveal">
+      <div class="sec-eyebrow" style="justify-content:center">Get In Touch</div>
+      <h2 class="sec-h" style="text-align:center">Let's Build Something <span>Amazing</span></h2>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <h3>Let's Connect</h3>
+        <p>Whether you need AI automation workflows, intelligent chatbots, or custom AI agent systems — I'm here to help.</p>
+        <!-- SOCIAL LINKS MANAGER — admin only -->
+        <div class="admin-only">
+          <div class="manager-panel" style="padding:1.25rem 1.5rem;margin-bottom:1.25rem">
+            <div class="mp-header" style="margin-bottom:0">
+              <div><div class="mp-title" style="font-size:0.88rem">Manage Social Links</div><div class="mp-sub">Add or remove contact links.</div></div>
+              <button class="btn-add" id="btn-soc-toggle" style="font-size:0.75rem;padding:0.45rem 0.9rem">+ Add Link</button>
+            </div>
+            <div class="add-form" id="soc-add-form" style="padding:1.1rem;margin-top:1rem">
+              <div class="af-grid-2">
+                <div class="af-field"><label>Platform Name *</label><input type="text" id="sc-name" placeholder="LinkedIn, GitHub…" maxlength="30"></div>
+                <div class="af-field"><label>Icon (emoji)</label><input type="text" id="sc-icon" placeholder="💼" maxlength="4" value="🔗"></div>
+              </div>
+              <div class="af-grid-2" style="margin-top:0.65rem">
+                <div class="af-field"><label>Display Handle *</label><input type="text" id="sc-handle" placeholder="linkedin.com/in/tayyaba"></div>
+                <div class="af-field"><label>Full URL *</label><input type="text" id="sc-url" placeholder="https://linkedin.com/in/tayyaba"></div>
+              </div>
+              <div class="af-bottom" style="margin-top:0.75rem">
+                <button class="btn-save" onclick="addSocial()">Save Link</button>
+                <button class="btn-cancel" onclick="toggleForm('soc-add-form','btn-soc-toggle','+ Add Link')">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="social-list" id="social-list"></div>
+      </div>
+      <div class="reveal d2">
+        <form class="contact-form" id="cform" onsubmit="doSubmit(event)">
+          <div class="fg-row">
+            <div class="fg"><label>First Name</label><input type="text" placeholder="Your name" required></div>
+            <div class="fg"><label>Last Name</label><input type="text" placeholder="Last name"></div>
+          </div>
+          <div class="fg"><label>Email Address</label><input type="email" placeholder="your@email.com" required></div>
+          <div class="fg"><label>Topic</label>
+            <select><option>AI Automation Project</option><option>AI Agent Development</option><option>n8n Workflow Help</option><option>Chatbot Development</option><option>General Inquiry</option></select>
+          </div>
+          <div class="fg"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
+          <button type="submit" class="btn-submit" id="sbtn">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">Tayyaba Khalid</div>
+  <div class="footer-copy">© 2025 Tayyaba Khalid. All rights reserved.</div>
+  <div class="footer-sig">Archive by @tayyaba_khalid</div>
+</footer>
+
+<script>
+// ════════════════════════════════════════════════════════════
+//  ⚙️  CHANGE YOUR ADMIN PASSWORD HERE (one place only)
+// ════════════════════════════════════════════════════════════
+// Admin password lives ONLY in Vercel environment variables (ADMIN_PASSWORD).
+// It is NEVER stored in this file. Authentication is verified server-side.
+
+// ════════════════════════════════════════════════════════════
+//  DEFAULT DATA
+// ════════════════════════════════════════════════════════════
+const DEFAULT_SKILLS=[
+  {id:1,name:"n8n Automation",cat:"Automation",pct:95},
+  {id:2,name:"AI Agents",cat:"AI Dev",pct:92},
+  {id:3,name:"Prompt Engineering",cat:"AI Dev",pct:90},
+  {id:4,name:"Workflow Automation",cat:"Automation",pct:94},
+  {id:5,name:"Chatbot Development",cat:"AI Dev",pct:88},
+  {id:6,name:"API Integration",cat:"Technical",pct:86},
+  {id:7,name:"Web Automation",cat:"Automation",pct:85},
+  {id:8,name:"No-Code Tools",cat:"Tools",pct:96},
+];
+const DEFAULT_BEST_SKILLS=[
+  {id:1001,name:"n8n Automation",pct:95},
+  {id:1002,name:"AI Agents",pct:92},
+  {id:1003,name:"Prompt Engineering",pct:90},
+  {id:1004,name:"Workflow Automation",pct:94},
+  {id:1005,name:"Chatbot Development",pct:88},
+  {id:1006,name:"API Integration",pct:86},
+];
+const DEFAULT_PROJECTS=[
+  {id:101,title:"Customer Support AI Agent",cat:"AI Agent",desc:"Fully automated customer support using n8n + GPT-4. Handles 80% of inquiries autonomously with smart escalation.",stack:["n8n","GPT-4","Webhooks","Telegram"],gh:"#",live:"#",featured:true,icon:"🤖",bg:"#dfd0f5"},
+  {id:102,title:"Lead Generation Automator",cat:"Automation",desc:"End-to-end lead pipeline automation extracting prospects and routing to CRM with personalized outreach.",stack:["n8n","Apollo","HubSpot","OpenAI"],gh:"#",live:"#",featured:false,icon:"📈",bg:"#d0dff5"},
+  {id:103,title:"AI Content Pipeline",cat:"AI Workflow",desc:"Automated content creation generating SEO articles, social posts, and newsletters from a single topic.",stack:["n8n","Claude AI","WordPress","Airtable"],gh:"#",live:"#",featured:true,icon:"✍️",bg:"#d0f5e0"},
+  {id:104,title:"Multi-Agent Research System",cat:"AI Agent",desc:"Orchestrated multi-agent system where specialized agents collaborate to research, fact-check, and synthesize reports.",stack:["n8n","GPT-4o","Perplexity","Notion"],gh:"#",live:"#",featured:false,icon:"🔬",bg:"#f5f0d0"},
+  {id:105,title:"E-commerce Order Automation",cat:"Automation",desc:"Complete order lifecycle automation from purchase to delivery, including inventory and notifications.",stack:["n8n","Shopify","SendGrid","Slack"],gh:"#",live:"#",featured:false,icon:"🛒",bg:"#f5d0e0"},
+  {id:106,title:"AI Appointment Scheduler",cat:"AI Workflow",desc:"Intelligent scheduling agent that understands natural language and books appointments automatically.",stack:["n8n","Google Calendar","OpenAI","Twilio"],gh:"#",live:"#",featured:true,icon:"📅",bg:"#d0f0f5"},
+];
+const DEFAULT_EDUCATION=[
+  {id:201,date:"2022 — 2026",degree:"Bachelor's in Computer Science",school:"Your University Name — Edit This",desc:"Focusing on artificial intelligence, machine learning, and software engineering. Add your GPA and honors here."},
+  {id:202,date:"2020 — 2022",degree:"FSc Pre-Engineering / Intermediate",school:"Your College Name — Edit This",desc:"Completed intermediate education with focus on mathematics and science."},
+  {id:203,date:"2018 — 2020",degree:"Matriculation",school:"Your School Name — Edit This",desc:"Completed secondary education. Add school name, board, and achievements here."},
+];
+const DEFAULT_AGENTS=[
+  {id:301,name:"OmniSupport Agent",purpose:"Autonomous customer service agent handling multi-channel support across email, chat, and WhatsApp.",flow:"Webhook → AI Intent → Knowledge Base → Response → Route",tools:["n8n","GPT-4o","Vector DB","WhatsApp"],status:"active",icon:"🎯"},
+  {id:302,name:"Research Maestro",purpose:"Multi-step research agent that browses the web, extracts insights, and compiles intelligence reports.",flow:"Topic → Browse → Extract → Verify → Synthesize → Report",tools:["n8n","Claude 3.5","Tavily","Notion"],status:"active",icon:"🔍"},
+  {id:303,name:"DataFlow Agent",purpose:"Intelligent data pipeline monitoring sources, detecting anomalies, and triggering automated alerts.",flow:"Monitor → Clean → Transform → Anomaly → Alert/Store",tools:["n8n","OpenAI","PostgreSQL","Grafana"],status:"building",icon:"📊"},
+  {id:304,name:"SocialPulse Agent",purpose:"Social media intelligence tracking brand mentions, sentiment analysis, and automated engagement.",flow:"Monitor → NLP → Sentiment → Draft → Approve → Post",tools:["n8n","Claude AI","Twitter API","Slack"],status:"active",icon:"📱"},
+  {id:305,name:"ProspectHunter",purpose:"Lead intelligence agent identifying prospects, crafting personalized outreach, and managing follow-up sequences.",flow:"ICP → Search → Enrich → Personalize → Send → Track",tools:["n8n","GPT-4","Apollo","HubSpot"],status:"active",icon:"🎪"},
+  {id:306,name:"DevAssist Agent",purpose:"Development workflow automation for code reviews, documentation generation, and deployment management.",flow:"PR Trigger → Analyze → Doc Gen → Review → Notify",tools:["n8n","Claude 3.5","GitHub","Jira"],status:"building",icon:"💻"},
+];
+const DEFAULT_EXPERIENCE=[
+  {id:401,period:"2024 — Present",title:"AI Automation & AI Agent Developer",company:"Freelance / Self-Employed",desc:"Building custom AI automations and AI agents using n8n and modern LLMs. Designing end-to-end workflow systems for clients.",current:true},
+  {id:402,period:"2023 — 2024",title:"Workflow Automation Specialist",company:"Add Your Company Name Here",desc:"Add your actual work experience here. Describe your role, responsibilities, and key achievements.",current:false},
+];
+const DEFAULT_HERO_CARDS=[
+  {id:601,icon:"⚡",title:"n8n Expert",text:"Advanced workflow automation"},
+  {id:602,icon:"🤖",title:"AI Agents",text:"Autonomous intelligent systems"},
+  {id:603,icon:"💬",title:"Chatbots",text:"Conversational AI systems"},
+  {id:604,icon:"🔌",title:"Integrations",text:"Seamless API connections"},
+];
+const DEFAULT_HERO_STATS={
+  num1:"15",label1:"AI Projects",
+  num2:"10",label2:"AI Agents",
+  num3:"50",label3:"Workflows Built",
+};
+const DEFAULT_HERO_DESC="Building intelligent AI automations, AI agents, and workflow systems using n8n and modern AI technologies. Turning complex processes into seamless, intelligent solutions.";
+const DEFAULT_HERO_ROLE="AI Automation & AI Agent Developer";
+const DEFAULT_HERO_CHIP="// AI Automation Developer";
+const DEFAULT_CHATBOT={
+  webhook:"",
+  title:"Tayyaba's AI Assistant",
+  greeting:"Hi! How can I help you today?",
+};
+const DEFAULT_AVATAR_SUB="AI Automation Developer";
+const DEFAULT_ABOUT={
+  eyebrow:"About Me",
+  heading1:"Building Intelligent",
+  heading2:"Automation Systems",
+  para1:"I'm a passionate AI Automation and AI Agent Developer who specializes in creating intelligent workflow systems that bridge the gap between complex business needs and cutting-edge AI technology.",
+  para2:"My focus is on n8n automation, deploying autonomous AI agents, and building chatbot systems that genuinely understand user needs. I believe in AI as a collaborative partner that amplifies human potential.",
+  para3:"Every automation I build is designed with one goal: to free people from mundane tasks so they can focus on what truly matters.",
+  tags:["n8n Automation","AI Agents","Workflow Design","API Integration","Chatbot Systems","Prompt Engineering","Web Automation"]
+};
+const DEFAULT_SOCIALS=[
+  {id:501,name:"Email",handle:"tayyaba@youremail.com",icon:"✉️",href:"mailto:tayyaba@youremail.com"},
+  {id:502,name:"LinkedIn",handle:"linkedin.com/in/tayyabakhalid",icon:"💼",href:"https://linkedin.com/in/tayyabakhalid"},
+  {id:503,name:"GitHub",handle:"github.com/tayyabakhalid",icon:"🐙",href:"https://github.com/tayyabakhalid"},
+];
+
+// ════════════════════════════════════════════════════════════
+//  ROLE-BASED SECURITY
+// ════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════
+//  SECURITY — server-verified admin sessions
+// ════════════════════════════════════════════════════════════
+const SESSION_KEY='tk_admin_token';
+function getToken(){ return sessionStorage.getItem(SESSION_KEY)||''; }
+function isAdmin(){ return !!getToken(); }
+
+function applyMode(){
+  const els=document.querySelectorAll('.admin-only');
+  if(isAdmin()){
+    document.body.classList.add('admin-mode');
+    document.getElementById('admin-bar').classList.add('show');
+    els.forEach(el=>el.style.removeProperty('display'));
+  } else {
+    document.body.classList.remove('admin-mode');
+    document.getElementById('admin-bar').classList.remove('show');
+    els.forEach(el=>el.style.setProperty('display','none','important'));
+  }
+}
+
+async function attemptLogin(){
+  const pwEl=document.getElementById('al-pw');
+  const err=document.getElementById('al-err');
+  const btn=document.querySelector('.al-btn');
+  const pw=pwEl.value; if(!pw) return;
+  btn.disabled=true; btn.textContent='Verifying…'; err.classList.remove('show');
+  try{
+    const res=await fetch('/api/verify-admin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw})});
+    const data=await res.json();
+    if(res.ok&&data.ok&&data.token){
+      sessionStorage.setItem(SESSION_KEY,data.token);
+      document.getElementById('admin-login').classList.remove('show');
+      pwEl.value=''; applyMode();
+      showToast('✓ Admin mode unlocked');
+      history.replaceState(null,'',window.location.pathname+window.location.search);
+    } else {
+      err.textContent=data.error||'Incorrect password. Access denied.';
+      err.classList.add('show'); pwEl.value=''; pwEl.focus();
+    }
+  }catch(e){
+    err.textContent='Could not reach server. Check connection.';
+    err.classList.add('show');
+  }finally{ btn.disabled=false; btn.textContent='Unlock Admin Mode →'; }
+}
+
+function logout(){ sessionStorage.removeItem(SESSION_KEY); applyMode(); showToast('Admin session ended.'); }
+function closeLogin(){ document.getElementById('admin-login').classList.remove('show'); history.replaceState(null,'',window.location.pathname+window.location.search); }
+function checkAdminHash(){
+  if(window.location.hash==='#admin-access'&&!isAdmin()){
+    document.getElementById('admin-login').classList.add('show');
+    setTimeout(()=>document.getElementById('al-pw').focus(),300);
+  }
+}
+document.getElementById('al-pw').addEventListener('keydown',e=>{ if(e.key==='Enter') attemptLogin(); });
+
+// ════════════════════════════════════════════════════════════
+//  CONTENT STORE — backed by Vercel API + Supabase
+// ════════════════════════════════════════════════════════════
+let CONTENT={};
+
+async function loadContent(){
+  try{
+    const res=await fetch('/api/get-content',{cache:'no-store'});
+    if(res.ok){ CONTENT=await res.json()||{}; }
+  }catch(e){ console.warn('Content load failed, using defaults.',e); CONTENT={}; }
+}
+
+function ls(key,def){
+  if(CONTENT&&Object.prototype.hasOwnProperty.call(CONTENT,key)&&CONTENT[key]!=null){
+    try{ return JSON.parse(JSON.stringify(CONTENT[key])); }catch(e){ return CONTENT[key]; }
+  }
+  return JSON.parse(JSON.stringify(def));
+}
+
+function lsave(key,val){
+  CONTENT[key]=val;
+  if(!isAdmin()) return;
+  fetch('/api/save-content',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-admin-token':getToken()},
+    body:JSON.stringify({key,value:val})
+  }).then(async res=>{
+    if(!res.ok){
+      const d=await res.json().catch(()=>({}));
+      if(res.status===401){ showToast('⚠️ Session expired. Please log in again.'); sessionStorage.removeItem(SESSION_KEY); applyMode(); }
+      else showToast('⚠️ '+(d.error||'Failed to save.'));
+    }
+  }).catch(()=>showToast('⚠️ Could not save — check connection.'));
+}
+
+// ════════════════════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════════════════════
+function levelLabel(p){return p>=90?'Expert':p>=75?'Advanced':p>=55?'Intermediate':'Beginner';}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function toggleForm(formId,btnId,closedLabel){
+  if(!isAdmin()) return;
+  const f=document.getElementById(formId),b=document.getElementById(btnId);
+  const open=f.classList.toggle('open');
+  b.textContent=open?'✕ Cancel':closedLabel;
+}
+function requireAdmin(fn){return function(){if(!isAdmin()){showToast('Admin access required.');return;}fn.apply(this,arguments);}; }
+
+// ════════════════════════════════════════════════════════════
+//  HERO LINK
+// ════════════════════════════════════════════════════════════
+function renderHeroLink(){
+  const d=ls('tk_hero_link',{text:'instagram.com/tayyaba_khalid',url:'https://www.instagram.com/tayyaba_khalid'});
+  const el=document.getElementById('hero-link-display');
+  el.textContent=d.text; el.href=d.url;
+  document.getElementById('link-text-input').value=d.text;
+  document.getElementById('link-url-input').value=d.url;
+}
+function toggleLinkEdit(){if(!isAdmin())return; document.getElementById('hero-link-edit').classList.toggle('open');}
+function saveHeroLink(){
+  if(!isAdmin())return;
+  const text=document.getElementById('link-text-input').value.trim();
+  let url=document.getElementById('link-url-input').value.trim();
+  if(!text||!url){showToast('Fill both fields.');return;}
+  if(!url.startsWith('http')&&!url.startsWith('mailto'))url='https://'+url;
+  lsave('tk_hero_link',{text,url});
+  renderHeroLink();
+  document.getElementById('hero-link-edit').classList.remove('open');
+  showToast('✓ Link updated!');
+}
+
+// ════════════════════════════════════════════════════════════
+//  PROFILE PICTURE
+// ════════════════════════════════════════════════════════════
+function renderAvatar(){
+  const img=ls('tk_avatar',null);
+  const imgEl=document.getElementById('avatar-img');
+  const fallback=document.getElementById('avatar-fallback');
+  const removeBtn=document.getElementById('avatar-remove-btn');
+  if(img){
+    imgEl.src=img; imgEl.style.display='block';
+    fallback.style.display='none';
+    if(removeBtn) removeBtn.style.display='inline-block';
+  } else {
+    imgEl.style.display='none'; imgEl.src='';
+    fallback.style.display='block';
+    if(removeBtn) removeBtn.style.display='none';
+  }
+}
+function handleAvatarUpload(file){
+  if(!isAdmin()||!file)return;
+  if(!file.type.startsWith('image/')){showToast('Please select an image file.');return;}
+  if(file.size>2*1024*1024){showToast('Image too large. Please use an image under 2MB.');return;}
+  const reader=new FileReader();
+  reader.onload=function(e){
+    lsave('tk_avatar',e.target.result);
+    renderAvatar();
+    showToast('✓ Profile picture updated!');
+  };
+  reader.readAsDataURL(file);
+}
+function removeAvatar(){
+  if(!isAdmin())return;
+  lsave('tk_avatar',null);
+  renderAvatar();
+  showToast('Profile picture removed.');
+}
+document.getElementById('avatar-upload').addEventListener('change',function(){
+  if(this.files&&this.files[0]) handleAvatarUpload(this.files[0]);
+});
+
+// ════════════════════════════════════════════════════════════
+//  HERO DESCRIPTION
+// ════════════════════════════════════════════════════════════
+function renderHeroDesc(){
+  const desc=ls('tk_hero_desc',DEFAULT_HERO_DESC);
+  document.getElementById('hero-desc-text').textContent=desc;
+  document.getElementById('desc-input').value=desc;
+}
+function saveHeroDesc(){
+  if(!isAdmin())return;
+  const val=document.getElementById('desc-input').value.trim();
+  if(!val){showToast('Description cannot be empty.');return;}
+  lsave('tk_hero_desc',val);
+  renderHeroDesc();
+  toggleForm('desc-edit-form','btn-desc-edit','✏️ Edit Description');
+  showToast('✓ Description updated!');
+}
+document.getElementById('btn-desc-edit')?.addEventListener('click',()=>{
+  if(isAdmin()) document.getElementById('desc-input').value=ls('tk_hero_desc',DEFAULT_HERO_DESC);
+});
+
+// ════════════════════════════════════════════════════════════
+//  HERO ROLE TAGLINE
+// ════════════════════════════════════════════════════════════
+function renderHeroRole(){
+  const val=ls('tk_hero_role',DEFAULT_HERO_ROLE);
+  document.getElementById('hero-role-text').textContent=val;
+  document.getElementById('role-input').value=val;
+}
+function saveHeroRole(){
+  if(!isAdmin())return;
+  const val=document.getElementById('role-input').value.trim();
+  if(!val){showToast('Tagline cannot be empty.');return;}
+  lsave('tk_hero_role',val);
+  renderHeroRole();
+  toggleForm('role-edit-form','btn-role-edit','✏️ Edit Tagline');
+  showToast('✓ Tagline updated!');
+}
+document.getElementById('btn-role-edit')?.addEventListener('click',()=>{
+  if(isAdmin()) document.getElementById('role-input').value=ls('tk_hero_role',DEFAULT_HERO_ROLE);
+});
+
+// ════════════════════════════════════════════════════════════
+//  HERO TOP LABEL (chip above tagline/name)
+// ════════════════════════════════════════════════════════════
+function renderHeroChip(){
+  const val=ls('tk_hero_chip',DEFAULT_HERO_CHIP);
+  document.getElementById('hero-chip-text').textContent=val;
+  document.getElementById('chip-input').value=val;
+}
+function saveHeroChip(){
+  if(!isAdmin())return;
+  const val=document.getElementById('chip-input').value.trim();
+  if(!val){showToast('Label cannot be empty.');return;}
+  lsave('tk_hero_chip',val);
+  renderHeroChip();
+  toggleForm('chip-edit-form','btn-chip-edit','✏️ Edit Top Label');
+  showToast('✓ Top label updated!');
+}
+// ════════════════════════════════════════════════════════════
+//  CHATBOT — connected to n8n webhook
+// ════════════════════════════════════════════════════════════
+function loadChatbotForm(){
+  const c=ls('tk_chatbot',DEFAULT_CHATBOT);
+  document.getElementById('cb-webhook').value=c.webhook||'';
+  document.getElementById('cb-title').value=c.title||'';
+  document.getElementById('cb-greeting').value=c.greeting||'';
+}
+
+function saveChatbotConfig(){
+  if(!isAdmin())return;
+  const webhook=document.getElementById('cb-webhook').value.trim();
+  const title=document.getElementById('cb-title').value.trim()||DEFAULT_CHATBOT.title;
+  const greeting=document.getElementById('cb-greeting').value.trim()||DEFAULT_CHATBOT.greeting;
+  if(webhook && !webhook.startsWith('http')){ showToast('Webhook URL must start with http:// or https://'); return; }
+  lsave('tk_chatbot',{webhook,title,greeting});
+  renderChatbot();
+  showToast(webhook ? '✓ Chatbot connected! Visible to all visitors now.' : '✓ Settings saved.');
+}
+
+async function testChatbotConnection(){
+  if(!isAdmin())return;
+  const webhook=document.getElementById('cb-webhook').value.trim();
+  const result=document.getElementById('cb-test-result');
+  if(!webhook){ result.textContent='Enter a webhook URL first.'; result.style.color='#a03030'; return; }
+  result.textContent='Testing…'; result.style.color='var(--text-muted)';
+  try{
+    const res=await fetch(webhook,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chatInput:'Hello',sessionId:'test-'+Date.now(),action:'sendMessage'})
+    });
+    if(res.ok){
+      result.textContent='✓ Connection successful!'; result.style.color='var(--mid)';
+    } else {
+      result.textContent=`✗ Webhook responded with ${res.status}. Check the URL & CORS settings.`; result.style.color='#a03030';
+    }
+  }catch(err){
+    result.textContent='✗ Could not reach webhook. Check URL, CORS, and that the workflow is active.'; result.style.color='#a03030';
+  }
+}
+
+function renderChatbot(){
+  const c=ls('tk_chatbot',DEFAULT_CHATBOT);
+  document.getElementById('cb-display-name').textContent=c.title||DEFAULT_CHATBOT.title;
+  const msgs=document.getElementById('cb-messages');
+  const input=document.getElementById('cb-user-input');
+  const sendBtn=document.getElementById('cb-send-btn');
+
+  if(c.webhook){
+    document.getElementById('cb-status-text').textContent='Online & Ready';
+    input.disabled=false; sendBtn.disabled=false;
+    input.placeholder='Ask me about AI automation, n8n, workflows...';
+    // show greeting only if conversation hasn't started
+    if(!msgs.dataset.started){
+      msgs.innerHTML='';
+      if(c.greeting){ appendMessage('bot',c.greeting); }
+      msgs.dataset.started='1';
+    }
+  } else {
+    document.getElementById('cb-status-text').textContent='Setup Pending';
+    input.disabled=true; sendBtn.disabled=true;
+    input.placeholder='Chatbot not connected yet...';
+    msgs.innerHTML=`
+      <div class="cb-empty-state">
+        <div class="cb-ph-icon">🔌</div>
+        <strong>AI Chatbot Coming Soon</strong>
+        This assistant is being connected to an n8n workflow. Check back shortly!
+      </div>`;
+    delete msgs.dataset.started;
+  }
+}
+
+function appendMessage(role,text){
+  const msgs=document.getElementById('cb-messages');
+  const bubble=document.createElement('div');
+  bubble.className='cb-msg '+role;
+  bubble.textContent=text;
+  msgs.appendChild(bubble);
+  msgs.scrollTop=msgs.scrollHeight;
+  return bubble;
+}
+
+function showTyping(){
+  const msgs=document.getElementById('cb-messages');
+  const t=document.createElement('div');
+  t.className='cb-msg bot typing';
+  t.id='cb-typing-indicator';
+  t.innerHTML='<span class="cb-typing-dot"></span><span class="cb-typing-dot"></span><span class="cb-typing-dot"></span>';
+  msgs.appendChild(t);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function hideTyping(){
+  document.getElementById('cb-typing-indicator')?.remove();
+}
+
+// Persist a session ID per browser so n8n can maintain conversation memory
+function getChatSessionId(){
+  let sid=sessionStorage.getItem('tk_chat_session');
+  if(!sid){ sid='session-'+Date.now()+'-'+Math.random().toString(36).slice(2,8); sessionStorage.setItem('tk_chat_session',sid); }
+  return sid;
+}
+
+async function sendChatMessage(){
+  const c=ls('tk_chatbot',DEFAULT_CHATBOT);
+  const input=document.getElementById('cb-user-input');
+  const sendBtn=document.getElementById('cb-send-btn');
+  const text=input.value.trim();
+  if(!text||!c.webhook) return;
+
+  appendMessage('user',text);
+  input.value='';
+  input.disabled=true; sendBtn.disabled=true;
+  showTyping();
+
+  try{
+    const res=await fetch(c.webhook,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        chatInput:text,
+        sessionId:getChatSessionId(),
+        action:'sendMessage'
+      })
+    });
+    hideTyping();
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    // n8n Chat Trigger commonly returns { output: "..." } or { text: "..." } or raw string
+    let reply = data.output ?? data.text ?? data.message ?? data.reply;
+    if(reply==null && typeof data==='string') reply=data;
+    if(reply==null) reply="I received your message but didn't get a readable response. Please check your n8n workflow's response format.";
+    appendMessage('bot', String(reply));
+  }catch(err){
+    hideTyping();
+    appendMessage('bot','⚠️ Sorry, I could not reach the AI workflow right now. Please try again later.');
+    console.error('Chatbot error:',err);
+  }finally{
+    input.disabled=false; sendBtn.disabled=false; input.focus();
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  AVATAR SUBTITLE
+// ════════════════════════════════════════════════════════════
+function renderAvatarSub(){
+  const val=ls('tk_avatar_sub',DEFAULT_AVATAR_SUB);
+  document.getElementById('avatar-sub-text').textContent=val;
+  document.getElementById('avsub-input').value=val;
+}
+function saveAvatarSub(){
+  if(!isAdmin())return;
+  const val=document.getElementById('avsub-input').value.trim();
+  if(!val){showToast('Subtitle cannot be empty.');return;}
+  lsave('tk_avatar_sub',val);
+  renderAvatarSub();
+  toggleForm('avsub-edit-form','btn-avsub-edit','✏️ Edit Subtitle');
+  showToast('✓ Subtitle updated!');
+}
+document.getElementById('btn-avsub-edit')?.addEventListener('click',()=>{
+  if(isAdmin()) document.getElementById('avsub-input').value=ls('tk_avatar_sub',DEFAULT_AVATAR_SUB);
+});
+
+// ════════════════════════════════════════════════════════════
+//  ABOUT ME SECTION
+// ════════════════════════════════════════════════════════════
+function renderAboutSection(){
+  const d=ls('tk_about',DEFAULT_ABOUT);
+  document.getElementById('about-eyebrow-text').textContent=d.eyebrow;
+  document.getElementById('about-heading-text').innerHTML=`${escapeHtml(d.heading1)}<br><span>${escapeHtml(d.heading2)}</span>`;
+  document.getElementById('about-text-paras').innerHTML=
+    `<p>${escapeHtml(d.para1)}</p><p>${escapeHtml(d.para2)}</p><p>${escapeHtml(d.para3)}</p>`;
+  document.getElementById('about-tags-display').innerHTML=
+    (d.tags||[]).map(t=>`<span class="atag">${escapeHtml(t)}</span>`).join('');
+  // prefill form
+  document.getElementById('ab-eyebrow').value=d.eyebrow;
+  document.getElementById('ab-heading1').value=d.heading1;
+  document.getElementById('ab-heading2').value=d.heading2;
+  document.getElementById('ab-para1').value=d.para1;
+  document.getElementById('ab-para2').value=d.para2;
+  document.getElementById('ab-para3').value=d.para3;
+  document.getElementById('ab-tags').value=(d.tags||[]).join(', ');
+}
+function escapeHtml(s){
+  const div=document.createElement('div');
+  div.textContent=s==null?'':s;
+  return div.innerHTML;
+}
+function saveAboutSection(){
+  if(!isAdmin())return;
+  const eyebrow=document.getElementById('ab-eyebrow').value.trim()||DEFAULT_ABOUT.eyebrow;
+  const heading1=document.getElementById('ab-heading1').value.trim()||DEFAULT_ABOUT.heading1;
+  const heading2=document.getElementById('ab-heading2').value.trim()||DEFAULT_ABOUT.heading2;
+  const para1=document.getElementById('ab-para1').value.trim();
+  const para2=document.getElementById('ab-para2').value.trim();
+  const para3=document.getElementById('ab-para3').value.trim();
+  const tags=document.getElementById('ab-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+  if(!para1&&!para2&&!para3){showToast('Add at least one paragraph.');return;}
+  lsave('tk_about',{eyebrow,heading1,heading2,para1,para2,para3,tags});
+  renderAboutSection();
+  toggleForm('about-edit-form','btn-about-toggle','✏️ Edit Section');
+  showToast('✓ About Me section updated!');
+}
+document.getElementById('btn-about-toggle')?.addEventListener('click',()=>{
+  if(!isAdmin())return;
+  renderAboutSection(); // refresh form values before opening
+  toggleForm('about-edit-form','btn-about-toggle','✏️ Edit Section');
+});
+
+// ════════════════════════════════════════════════════════════
+//  HERO STATS (Projects / Agents / Workflows numbers)
+// ════════════════════════════════════════════════════════════
+function renderHeroStats(){
+  const s=ls('tk_hero_stats',DEFAULT_HERO_STATS);
+  document.getElementById('hero-stats').innerHTML=`
+    <div><div class="h-stat-n" data-final="${s.num1}">0+</div><div class="h-stat-l">${s.label1}</div></div>
+    <div><div class="h-stat-n" data-final="${s.num2}">0+</div><div class="h-stat-l">${s.label2}</div></div>
+    <div><div class="h-stat-n" data-final="${s.num3}">0+</div><div class="h-stat-l">${s.label3}</div></div>`;
+  // prefill edit form
+  document.getElementById('stat1-num').value=s.num1;
+  document.getElementById('stat2-num').value=s.num2;
+  document.getElementById('stat3-num').value=s.num3;
+  document.getElementById('stat1-label').value=s.label1;
+  document.getElementById('stat2-label').value=s.label2;
+  document.getElementById('stat3-label').value=s.label3;
+}
+function saveHeroStats(){
+  if(!isAdmin())return;
+  const data={
+    num1:document.getElementById('stat1-num').value.trim()||DEFAULT_HERO_STATS.num1,
+    num2:document.getElementById('stat2-num').value.trim()||DEFAULT_HERO_STATS.num2,
+    num3:document.getElementById('stat3-num').value.trim()||DEFAULT_HERO_STATS.num3,
+    label1:document.getElementById('stat1-label').value.trim()||DEFAULT_HERO_STATS.label1,
+    label2:document.getElementById('stat2-label').value.trim()||DEFAULT_HERO_STATS.label2,
+    label3:document.getElementById('stat3-label').value.trim()||DEFAULT_HERO_STATS.label3,
+  };
+  lsave('tk_hero_stats',data);
+  renderHeroStats();
+  animCounters(true); // re-run animation immediately
+  toggleForm('stats-edit-form','btn-stats-edit','✏️ Edit Stats');
+  showToast('✓ Stats updated!');
+}
+
+// ════════════════════════════════════════════════════════════
+//  HERO HIGHLIGHT CARDS (below profile picture)
+// ════════════════════════════════════════════════════════════
+function renderHeroCards(){
+  const cards=ls('tk_hero_cards',DEFAULT_HERO_CARDS);
+  const grid=document.getElementById('hero-cards');
+  if(!cards.length){grid.innerHTML='<div class="empty-state" style="grid-column:1/-1">No cards yet.</div>';return;}
+  grid.innerHTML=cards.map(c=>`
+    <div class="h-card">
+      <div class="h-card-icon">${c.icon||'⚡'}</div>
+      <div class="h-card-title">${c.title}</div>
+      <div class="h-card-text">${c.text}</div>
+      <button class="item-del" onclick="deleteHeroCard(${c.id})" title="Remove">✕</button>
+    </div>`).join('');
+}
+function addHeroCard(){
+  if(!isAdmin())return;
+  const title=document.getElementById('hc-title').value.trim();
+  const text=document.getElementById('hc-text').value.trim();
+  if(!title||!text){showToast('Title and description required.');return;}
+  const cards=ls('tk_hero_cards',DEFAULT_HERO_CARDS);
+  cards.push({id:Date.now(),icon:document.getElementById('hc-icon').value||'⚡',title,text});
+  lsave('tk_hero_cards',cards);
+  ['hc-title','hc-text'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('hc-icon').value='⚡';
+  toggleForm('hcard-add-form','btn-hcard-toggle','+ Add Card');
+  renderHeroCards();showToast('✓ Card added!');
+}
+function deleteHeroCard(id){
+  if(!isAdmin())return;
+  if(!confirm('Remove this card?'))return;
+  lsave('tk_hero_cards',ls('tk_hero_cards',DEFAULT_HERO_CARDS).filter(c=>c.id!==id));
+  renderHeroCards();showToast('Card removed.');
+}
+document.getElementById('btn-hcard-toggle').addEventListener('click',()=>toggleForm('hcard-add-form','btn-hcard-toggle','+ Add Card'));
+
+// ════════════════════════════════════════════════════════════
+//  SKILLS
+// ════════════════════════════════════════════════════════════
+function renderAboutSkills(){
+  const skills=ls('tk_best_skills',DEFAULT_BEST_SKILLS);
+  const grid=document.getElementById('about-skills-grid');
+  if(!skills.length){grid.innerHTML='<div class="empty-state">No items yet.</div>';return;}
+  grid.innerHTML=skills.map(s=>`
+    <div class="about-skill-pill">
+      <div class="asp-top"><span class="asp-name">${s.name}</span><span class="asp-pct">${s.pct}%</span></div>
+      <div class="asp-bar"><div class="asp-fill" data-pct="${s.pct}"></div></div>
+      <button class="asp-del" onclick="deleteBestSkill(${s.id})" title="Remove">✕</button>
+    </div>`).join('');
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.asp-fill').forEach(b=>setTimeout(()=>b.style.width=b.dataset.pct+'%',300));obs.unobserve(e.target);}});},{threshold:0.2});
+  if(grid)obs.observe(grid);
+}
+function addBestSkill(){
+  if(!isAdmin())return;
+  const name=document.getElementById('bs-name').value.trim();
+  if(!name){showToast('Enter a name.');return;}
+  const items=ls('tk_best_skills',DEFAULT_BEST_SKILLS);
+  items.push({id:Date.now(),name,pct:+document.getElementById('bs-pct').value});
+  lsave('tk_best_skills',items);
+  renderAboutSkills();
+  document.getElementById('bs-name').value='';
+  document.getElementById('bs-pct').value=85;
+  document.getElementById('bs-pct-show').textContent='85';
+  toggleForm('bestskill-add-form','btn-bestskill-toggle','+ Add Item');
+  showToast('✓ Item added!');
+}
+function deleteBestSkill(id){
+  if(!isAdmin())return;
+  lsave('tk_best_skills',ls('tk_best_skills',DEFAULT_BEST_SKILLS).filter(s=>s.id!==id));
+  renderAboutSkills();showToast('Item removed.');
+}
+document.getElementById('btn-bestskill-toggle').addEventListener('click',()=>toggleForm('bestskill-add-form','btn-bestskill-toggle','+ Add Item'));
+function renderSkillsDisplay(){
+  const skills=ls('tk_skills',DEFAULT_SKILLS);
+  const grid=document.getElementById('skills-display');
+  if(!skills.length){grid.innerHTML='<div class="empty-state">No skills yet. Enter admin mode to add skills.</div>';return;}
+  grid.innerHTML=skills.map(s=>`
+    <div class="skill-card reveal">
+      <div class="sc-cat">${s.cat}</div>
+      <div class="sc-name">${s.name}</div>
+      <div class="sc-level">${levelLabel(s.pct)} · ${s.pct}%</div>
+      <div class="sc-bar"><div class="sc-fill" data-pct="${s.pct}"></div></div>
+      <div class="sc-pct">${s.pct}%</div>
+      <button class="sc-delete" onclick="deleteSkill(${s.id})" title="Remove">✕</button>
+    </div>`).join('');
+  observeReveal();
+  setTimeout(()=>document.querySelectorAll('.sc-fill').forEach(b=>b.style.width=b.dataset.pct+'%'),150);
+}
+function addSkill(){
+  if(!isAdmin())return;
+  const name=document.getElementById('sk-name').value.trim();
+  if(!name){showToast('Enter a skill name.');return;}
+  const skills=ls('tk_skills',DEFAULT_SKILLS);
+  skills.push({id:Date.now(),name,cat:document.getElementById('sk-cat').value,pct:+document.getElementById('sk-pct').value});
+  lsave('tk_skills',skills);
+  renderSkillsDisplay();
+  document.getElementById('sk-name').value='';
+  document.getElementById('sk-pct').value=85;
+  document.getElementById('sk-pct-show').textContent='85';
+  document.getElementById('sk-pct-lbl').textContent='Advanced';
+  toggleForm('skill-add-form','btn-skill-toggle','+ Add Skill');
+  showToast('✓ Skill added!');
+}
+function deleteSkill(id){
+  if(!isAdmin())return;
+  lsave('tk_skills',ls('tk_skills',DEFAULT_SKILLS).filter(s=>s.id!==id));
+  renderSkillsDisplay();showToast('Skill removed.');
+}
+document.getElementById('btn-skill-toggle').addEventListener('click',()=>toggleForm('skill-add-form','btn-skill-toggle','+ Add Skill'));
+
+// ════════════════════════════════════════════════════════════
+//  PROJECTS
+// ════════════════════════════════════════════════════════════
+function renderProjects(){
+  const projects=ls('tk_projects',DEFAULT_PROJECTS);
+  const cats=['All',...new Set(projects.map(p=>p.cat))];
+  document.getElementById('filter-row').innerHTML=cats.map((c,i)=>`<button class="ftab${i===0?' on':''}" data-cat="${c}">${c}</button>`).join('');
+  document.querySelectorAll('.ftab').forEach(t=>t.addEventListener('click',function(){
+    document.querySelectorAll('.ftab').forEach(x=>x.classList.remove('on'));this.classList.add('on');
+    drawProjects(this.dataset.cat==='All'?ls('tk_projects',DEFAULT_PROJECTS):ls('tk_projects',DEFAULT_PROJECTS).filter(p=>p.cat===this.dataset.cat));
+  }));
+  drawProjects(projects);
+}
+function drawProjects(data){
+  const el=document.getElementById('proj-grid');
+  if(!data.length){el.innerHTML='<div class="empty-state" style="grid-column:1/-1">No projects yet.</div>';return;}
+  el.innerHTML=data.map((p,i)=>`
+    <div class="proj-card reveal d${(i%3)+1}">
+      <div class="proj-thumb" style="background:${p.bg||'#dfd0f5'}">
+        <span>${p.icon||'🚀'}</span>
+        ${p.featured?'<div class="proj-feat">★ Featured</div>':''}
+        <button class="proj-del" onclick="deleteProject(${p.id})" title="Remove">✕</button>
+      </div>
+      <div class="proj-body">
+        <div class="proj-cat">${p.cat}</div>
+        <div class="proj-title">${p.title}</div>
+        <div class="proj-desc">${p.desc}</div>
+        <div class="proj-stack">${(Array.isArray(p.stack)?p.stack:[]).map(t=>`<span class="stag">${t}</span>`).join('')}</div>
+        <div class="proj-links">
+          ${p.gh&&p.gh!=='#'?`<a href="${p.gh}" target="_blank" class="plink gh">GitHub</a>`:''}
+          ${p.live&&p.live!=='#'?`<a href="${p.live}" target="_blank" class="plink live">Live Demo ↗</a>`:''}
+          ${(!p.gh||p.gh==='#')&&(!p.live||p.live==='#')?'<span style="font-size:0.75rem;color:var(--text-muted)">Links coming soon</span>':''}
+        </div>
+      </div>
+    </div>`).join('');
+  observeReveal();
+}
+function addProject(){
+  if(!isAdmin())return;
+  const title=document.getElementById('pj-title').value.trim();
+  const desc=document.getElementById('pj-desc').value.trim();
+  if(!title||!desc){showToast('Title and description required.');return;}
+  const stack=document.getElementById('pj-stack').value.split(',').map(s=>s.trim()).filter(Boolean);
+  let gh=document.getElementById('pj-gh').value.trim();
+  let live=document.getElementById('pj-live').value.trim();
+  if(gh&&!gh.startsWith('http'))gh='https://'+gh;
+  if(live&&!live.startsWith('http'))live='https://'+live;
+  const projects=ls('tk_projects',DEFAULT_PROJECTS);
+  projects.unshift({id:Date.now(),title,cat:document.getElementById('pj-cat').value,desc,stack,gh:gh||'#',live:live||'#',featured:document.getElementById('pj-featured').checked,icon:document.getElementById('pj-icon').value||'🚀',bg:document.getElementById('pj-bg').value});
+  lsave('tk_projects',projects);
+  ['pj-title','pj-desc','pj-stack','pj-gh','pj-live'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pj-icon').value='🚀';document.getElementById('pj-featured').checked=false;
+  toggleForm('proj-add-form','btn-proj-toggle','+ Add Project');
+  renderProjects();showToast('✓ Project added!');
+}
+function deleteProject(id){
+  if(!isAdmin())return;
+  if(!confirm('Remove this project?'))return;
+  lsave('tk_projects',ls('tk_projects',DEFAULT_PROJECTS).filter(p=>p.id!==id));
+  renderProjects();showToast('Project removed.');
+}
+document.getElementById('btn-proj-toggle').addEventListener('click',()=>toggleForm('proj-add-form','btn-proj-toggle','+ Add Project'));
+
+// ════════════════════════════════════════════════════════════
+//  AGENTS
+// ════════════════════════════════════════════════════════════
+function renderAgents(){
+  const agents=ls('tk_agents',DEFAULT_AGENTS);
+  const grid=document.getElementById('agents-grid');
+  if(!agents.length){grid.innerHTML='<div class="empty-state" style="grid-column:1/-1">No agents yet.</div>';return;}
+  grid.innerHTML=agents.map((a,i)=>`
+    <div class="agent-card reveal d${(i%3)+1}">
+      <div class="ac-head">
+        <div class="ac-icon">${a.icon||'🤖'}</div>
+        <div class="ac-badge ${a.status}">${a.status==='active'?'● Active':'⟳ Building'}</div>
+      </div>
+      <div class="ac-name">${a.name}</div>
+      <div class="ac-purpose">${a.purpose}</div>
+      <div class="ac-tools">${(Array.isArray(a.tools)?a.tools:[]).map(t=>`<span class="ac-tool">${t}</span>`).join('')}</div>
+      <div class="ac-flow">${a.flow||''}</div>
+      <button class="item-del" onclick="deleteAgent(${a.id})" title="Remove">✕</button>
+    </div>`).join('');
+  observeReveal();
+}
+function addAgent(){
+  if(!isAdmin())return;
+  const name=document.getElementById('ag-name').value.trim();
+  const purpose=document.getElementById('ag-purpose').value.trim();
+  if(!name||!purpose){showToast('Name and description required.');return;}
+  const tools=document.getElementById('ag-tools').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const agents=ls('tk_agents',DEFAULT_AGENTS);
+  agents.unshift({id:Date.now(),name,purpose,tools,flow:document.getElementById('ag-flow').value.trim(),status:document.getElementById('ag-status').value,icon:document.getElementById('ag-icon').value||'🤖'});
+  lsave('tk_agents',agents);
+  ['ag-name','ag-purpose','ag-tools','ag-flow'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('ag-icon').value='🤖';
+  toggleForm('agent-add-form','btn-agent-toggle','+ Add Agent');
+  renderAgents();showToast('✓ Agent added!');
+}
+function deleteAgent(id){
+  if(!isAdmin())return;
+  if(!confirm('Remove this agent?'))return;
+  lsave('tk_agents',ls('tk_agents',DEFAULT_AGENTS).filter(a=>a.id!==id));
+  renderAgents();showToast('Agent removed.');
+}
+document.getElementById('btn-agent-toggle').addEventListener('click',()=>toggleForm('agent-add-form','btn-agent-toggle','+ Add Agent'));
+
+// ════════════════════════════════════════════════════════════
+//  EDUCATION
+// ════════════════════════════════════════════════════════════
+function renderTimeline(){
+  const edu=ls('tk_education',DEFAULT_EDUCATION);
+  const tl=document.getElementById('timeline');
+  if(!edu.length){tl.innerHTML='<div class="empty-state">No education entries yet.</div>';return;}
+  tl.innerHTML=edu.map((e,i)=>`
+    <div class="tl-item reveal d${(i%3)+1}">
+      <div class="tl-date">${e.date}</div>
+      <div class="tl-card">
+        <div class="tl-degree">${e.degree}</div>
+        <div class="tl-school">${e.school}</div>
+        <div class="tl-desc">${e.desc}</div>
+        <button class="tl-del" onclick="deleteEducation(${e.id})" title="Remove">✕</button>
+      </div>
+    </div>`).join('');
+  observeReveal();
+}
+function addEducation(){
+  if(!isAdmin())return;
+  const degree=document.getElementById('ed-degree').value.trim();
+  const school=document.getElementById('ed-school').value.trim();
+  const date=document.getElementById('ed-date').value.trim();
+  if(!degree||!school||!date){showToast('Degree, institution, and year required.');return;}
+  const edu=ls('tk_education',DEFAULT_EDUCATION);
+  edu.unshift({id:Date.now(),degree,school,date,desc:document.getElementById('ed-desc').value.trim()});
+  lsave('tk_education',edu);
+  ['ed-degree','ed-school','ed-date','ed-desc'].forEach(id=>document.getElementById(id).value='');
+  toggleForm('edu-add-form','btn-edu-toggle','+ Add Education');
+  renderTimeline();showToast('✓ Education added!');
+}
+function deleteEducation(id){
+  if(!isAdmin())return;
+  if(!confirm('Remove this entry?'))return;
+  lsave('tk_education',ls('tk_education',DEFAULT_EDUCATION).filter(e=>e.id!==id));
+  renderTimeline();showToast('Entry removed.');
+}
+document.getElementById('btn-edu-toggle').addEventListener('click',()=>toggleForm('edu-add-form','btn-edu-toggle','+ Add Education'));
+
+// ════════════════════════════════════════════════════════════
+//  EXPERIENCE
+// ════════════════════════════════════════════════════════════
+function renderExp(){
+  const exps=ls('tk_experience',DEFAULT_EXPERIENCE);
+  const grid=document.getElementById('exp-grid');
+  if(!exps.length){grid.innerHTML='<div class="empty-state">No experience yet.</div>';return;}
+  grid.innerHTML=exps.map((e,i)=>`
+    <div class="exp-card reveal d${(i%3)+1}">
+      <div class="exp-period">${e.period}</div>
+      <div>
+        ${e.current?'<div class="exp-badge">Current Role</div>':''}
+        <div class="exp-title">${e.title}</div>
+        <div class="exp-company">${e.company}</div>
+        <div class="exp-desc">${e.desc}</div>
+      </div>
+      <button class="item-del" onclick="deleteExperience(${e.id})" title="Remove">✕</button>
+    </div>`).join('');
+  observeReveal();
+}
+function addExperience(){
+  if(!isAdmin())return;
+  const title=document.getElementById('ex-title').value.trim();
+  const company=document.getElementById('ex-company').value.trim();
+  const period=document.getElementById('ex-period').value.trim();
+  if(!title||!company||!period){showToast('Title, company, and period required.');return;}
+  const exps=ls('tk_experience',DEFAULT_EXPERIENCE);
+  exps.unshift({id:Date.now(),title,company,period,desc:document.getElementById('ex-desc').value.trim(),current:document.getElementById('ex-current').checked});
+  lsave('tk_experience',exps);
+  ['ex-title','ex-company','ex-period','ex-desc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('ex-current').checked=false;
+  toggleForm('exp-add-form','btn-exp-toggle','+ Add Experience');
+  renderExp();showToast('✓ Experience added!');
+}
+function deleteExperience(id){
+  if(!isAdmin())return;
+  if(!confirm('Remove this?'))return;
+  lsave('tk_experience',ls('tk_experience',DEFAULT_EXPERIENCE).filter(e=>e.id!==id));
+  renderExp();showToast('Removed.');
+}
+document.getElementById('btn-exp-toggle').addEventListener('click',()=>toggleForm('exp-add-form','btn-exp-toggle','+ Add Experience'));
+
+// ════════════════════════════════════════════════════════════
+//  SOCIALS
+// ════════════════════════════════════════════════════════════
+function renderSocials(){
+  const socials=ls('tk_socials',DEFAULT_SOCIALS);
+  const list=document.getElementById('social-list');
+  if(!socials.length){list.innerHTML='<div class="empty-state" style="padding:1.5rem;font-size:0.85rem">No links yet.</div>';return;}
+  list.innerHTML=socials.map(s=>`
+    <div class="social-link-wrap">
+      <a href="${s.href}" class="social-link" target="_blank">
+        <div class="soc-icon">${s.icon}</div>
+        <div><div class="soc-name">${s.name}</div><div class="soc-handle">${s.handle}</div></div>
+        <div class="soc-arrow">→</div>
+      </a>
+      <button class="soc-del-btn" onclick="deleteSocial(${s.id})" title="Remove">✕</button>
+    </div>`).join('');
+}
+function addSocial(){
+  if(!isAdmin())return;
+  const name=document.getElementById('sc-name').value.trim();
+  const handle=document.getElementById('sc-handle').value.trim();
+  let url=document.getElementById('sc-url').value.trim();
+  if(!name||!handle||!url){showToast('All fields required.');return;}
+  if(!url.startsWith('http')&&!url.startsWith('mailto'))url='https://'+url;
+  const socials=ls('tk_socials',DEFAULT_SOCIALS);
+  socials.push({id:Date.now(),name,handle,href:url,icon:document.getElementById('sc-icon').value||'🔗'});
+  lsave('tk_socials',socials);
+  ['sc-name','sc-handle','sc-url'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('sc-icon').value='🔗';
+  toggleForm('soc-add-form','btn-soc-toggle','+ Add Link');
+  renderSocials();showToast('✓ Link added!');
+}
+function deleteSocial(id){
+  if(!isAdmin())return;
+  lsave('tk_socials',ls('tk_socials',DEFAULT_SOCIALS).filter(s=>s.id!==id));
+  renderSocials();showToast('Link removed.');
+}
+document.getElementById('btn-soc-toggle').addEventListener('click',()=>toggleForm('soc-add-form','btn-soc-toggle','+ Add Link'));
+
+// ════════════════════════════════════════════════════════════
+//  SCROLL / NAV / REVEAL / COUNTERS
+// ════════════════════════════════════════════════════════════
+window.addEventListener('scroll',()=>{
+  const pct=window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100;
+  document.getElementById('sp').style.width=pct+'%';
+  document.getElementById('nav').classList.toggle('stuck',window.scrollY>60);
+});
+function observeReveal(){
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.08});
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>obs.observe(el));
+}
+function animCounters(forceNow){
+  const animate=(el)=>{
+    const raw=el.dataset.final;
+    const num=parseFloat(raw);
+    if(isNaN(num)){ el.textContent=raw; return; } // non-numeric, just display as-is
+    const suffix=raw.replace(/^[\d.]+/,'')||'+';
+    let cur=0;
+    const t=setInterval(()=>{cur+=num/35;if(cur>=num){cur=num;clearInterval(t);}el.textContent=Math.round(cur)+suffix;},40);
+  };
+  if(forceNow){
+    document.querySelectorAll('#hero-stats [data-final]').forEach(animate);
+    return;
+  }
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('[data-final]').forEach(animate);obs.unobserve(e.target);}});},{threshold:0.5});
+  const h=document.getElementById('hero');if(h)obs.observe(h);
+}
+document.getElementById('hbg').addEventListener('click',()=>document.getElementById('mobMenu').classList.toggle('open'));
+function closeMob(){document.getElementById('mobMenu').classList.remove('open');}
+function doSubmit(e){
+  e.preventDefault();const btn=document.getElementById('sbtn');
+  btn.textContent='✓ Message Sent!';btn.style.background='var(--mid)';
+  setTimeout(()=>{btn.textContent='Send Message →';btn.style.background='';e.target.reset();},3000);
+}
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('gone'),2100));
+
+// ════════════════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════════════════
+(async function init(){
+  const t0=Date.now();
+  await loadContent();
+  checkAdminHash();
+  applyMode();
+  renderHeroLink();
+  renderAvatar();
+  renderHeroChip();
+  renderHeroDesc();
+  renderHeroRole();
+  renderAvatarSub();
+  renderHeroStats();
+  renderHeroCards();
+  renderAboutSection();
+  renderAboutSkills();
+  loadChatbotForm();
+  renderChatbot();
+  renderSkillsDisplay();
+  renderProjects();
+  renderAgents();
+  renderTimeline();
+  renderExp();
+  renderSocials();
+  observeReveal();
+  animCounters();
+  const wait=Math.max(0,900-(Date.now()-t0));
+  setTimeout(()=>document.getElementById('loader').classList.add('gone'),wait);
+})();
+</script>
+</body>
+</html>
